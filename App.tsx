@@ -6,7 +6,7 @@ import FeedView from './src/pages/FeedView';
 import Walk from './src/pages/Walk';
 import Class from './src/pages/Class';
 import MyFeed from './src/pages/MyFeed';
-import {Alert, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {useState} from 'react';
 
 export type TabNavigatorParamList = {
@@ -28,15 +28,15 @@ function App() {
         screenOptions={{
           tabBarShowLabel: false,
           tabBarStyle: {
-            paddingTop: '4%',
+            // paddingTop: '5%',
+            paddingHorizontal: 10,
           },
         }}>
         <Tab.Screen
           name="Home"
           component={Home}
           listeners={() => ({
-            tabPress: e => {
-              e.preventDefault();
+            tabPress: () => {
               setNavState(1);
             },
           })}
@@ -61,8 +61,7 @@ function App() {
           name="FeedView"
           component={FeedView}
           listeners={() => ({
-            tabPress: e => {
-              e.preventDefault();
+            tabPress: () => {
               setNavState(2);
             },
           })}
@@ -87,8 +86,7 @@ function App() {
           name="Walk"
           component={Walk}
           listeners={() => ({
-            tabPress: e => {
-              e.preventDefault();
+            tabPress: () => {
               setNavState(3);
             },
           })}
@@ -113,8 +111,7 @@ function App() {
           name="Class"
           component={Class}
           listeners={() => ({
-            tabPress: e => {
-              e.preventDefault();
+            tabPress: () => {
               setNavState(4);
             },
           })}
@@ -139,8 +136,7 @@ function App() {
           name="MyFeed"
           component={MyFeed}
           listeners={() => ({
-            tabPress: e => {
-              e.preventDefault();
+            tabPress: () => {
               setNavState(5);
             },
           })}
