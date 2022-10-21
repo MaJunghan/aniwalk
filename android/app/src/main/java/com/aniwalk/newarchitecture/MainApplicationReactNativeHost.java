@@ -37,6 +37,8 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
     super(application);
   }
 
+ 
+
   @Override
   public boolean getUseDeveloperSupport() {
     return BuildConfig.DEBUG;
