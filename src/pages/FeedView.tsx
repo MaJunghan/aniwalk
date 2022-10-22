@@ -5,10 +5,10 @@ import NaverLogin, {
   GetProfileResponse,
 } from '@react-native-seoul/naver-login';
 
-const consumerKey = '';
-const consumerSecret = '';
-const appName = 'Hello';
-const serviceUrlScheme = 'navertest';
+const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
+const consumerSecret = 'K7PbKFcaPM';
+const appName = 'com.aniwalk';
+const serviceUrlScheme = 'aniwalk';
 
 function FeedView() {
   const [success, setSuccessResponse] =
@@ -25,6 +25,7 @@ function FeedView() {
       serviceUrlScheme,
     });
     setSuccessResponse(successResponse);
+    console.log(successResponse);
     setFailureResponse(failureResponse);
   };
 
