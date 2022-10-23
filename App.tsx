@@ -7,7 +7,8 @@ import Walk from './src/pages/Walk';
 import Class from './src/pages/Class';
 import MyFeed from './src/pages/MyFeed';
 import {Image, StyleSheet} from 'react-native';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 export type TabNavigatorParamList = {
   Home: undefined;
@@ -22,6 +23,17 @@ const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 function App() {
   let [navState, setNavState] = useState(1);
   console.log(navState);
+
+  const googleSigninConfigure = () => {
+    GoogleSignin.configure({
+      webClientId:
+        '403785232932-789ojdob1p6rbi85hkf6irvjn1qhsor7.apps.googleusercontent.com',
+    });
+  };
+
+  useEffect(() => {
+    googleSigninConfigure();
+  }, []);
   return (
     <NavigationContainer>
       <Tab.Navigator
