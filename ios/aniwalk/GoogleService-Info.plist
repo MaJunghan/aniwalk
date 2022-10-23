@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>403785232932-ma5c0n509472ts1oaor4r2e8vk85osmc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.403785232932-ma5c0n509472ts1oaor4r2e8vk85osmc</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>403785232932-2ias8mhgv6bs0np0qav0ngftcr6jl050.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCsgFaIyDeCAVbzYFXfaH5l5u1VEsFXMVc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>403785232932</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.aniwalk</string>
+	<key>PROJECT_ID</key>
+	<string>aniwalk-e89fd</string>
+	<key>STORAGE_BUCKET</key>
+	<string>aniwalk-e89fd.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:403785232932:ios:9e2d4e1570bad7bc9e9eb1</string>
+</dict>
+</plist>
