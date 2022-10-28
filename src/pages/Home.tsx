@@ -1,93 +1,86 @@
 import React from 'react';
-import {Text, SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import Slick from 'react-native-slick';
+import Video from 'react-native-video';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {SwipeListView} from 'react-native-swipe-list-view';
 
 function Home() {
-  const data = [{timestamp: Date.now(), text: 'Sample Text'}];
-  const renderItem = ({item}: any) => {
-    return (
-      <View
-        style={{
-          width: wp(80),
-          height: hp(80) / 4,
-          backgroundColor: '#FFF',
-          marginHorizontal: wp(10),
-          borderRadius: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <View
-          style={{
-            width: hp(4),
-            height: hp(4),
-            backgroundColor: '#8D71FE',
-            borderRadius: 4,
-            marginHorizontal: wp(3),
-            opacity: 0.4,
-          }}
-        />
-        <Text>{item.text}</Text>
-        <View
-          style={{
-            width: hp(2),
-            height: hp(2),
-            backgroundColor: '#8D71FE',
-            borderRadius: 100,
-            marginHorizontal: wp(3),
-            marginLeft: wp(35),
-          }}
-        />
-      </View>
-    );
-  };
-
-  const renderHiddenItem = () => {
-    return (
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: wp(10),
-          paddingVertical: hp(2),
-        }}>
-        <Text style={{fontSize: hp(3)}}>😀</Text>
-        <Text style={{fontSize: hp(3)}}>😂</Text>
-      </View>
-    );
-  };
+  const pet1 = require('../assets/video/pet1.mp4');
+  const pet2 = require('../assets/video/pet2.mp4');
+  const pet3 = require('../assets/video/pet3.mp4');
+  const pet4 = require('../assets/video/pet4.mp4');
 
   return (
-    <SafeAreaView style={style.view}>
-      <View
-        style={{
-          width: wp(100),
-          height: hp(20),
-          justifyContent: 'center',
-          paddingLeft: wp(10),
-        }}>
-        <Text style={{fontSize: hp(3), fontWeight: 'bold'}}>✓Todo List</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <View style={styles.banner}>
+        <Text>배너</Text>
       </View>
-      <View>
-        <SwipeListView
-          data={data}
-          renderItem={renderItem}
-          leftOpenValue={wp(10)}
-          rightOpenValue={-wp(10)}
-          renderHiddenItem={renderHiddenItem}
-        />
-      </View>
+      <Slick dotStyle={{display: 'none'}} activeDotStyle={{display: 'none'}}>
+        <View>
+          <Video
+            source={pet1}
+            style={styles.partScreen}
+            paused={false}
+            resizeMode={'contain'}
+            repeat={false}
+          />
+        </View>
+        <View>
+          <Video
+            source={pet2}
+            style={styles.partScreen}
+            paused={false}
+            resizeMode={'contain'}
+            repeat={false}
+          />
+        </View>
+        <View>
+          <Video
+            source={pet3}
+            style={styles.partScreen}
+            paused={false}
+            resizeMode={'contain'}
+            repeat={false}
+          />
+        </View>
+        <View>
+          <Video
+            source={pet4}
+            style={styles.partScreen}
+            paused={false}
+            resizeMode={'contain'}
+            repeat={false}
+          />
+        </View>
+      </Slick>
     </SafeAreaView>
   );
 }
 
-const style = StyleSheet.create({
-  view: {
-    flex: 1,
-    backgroundColor: '#E8EAED',
+const styles = StyleSheet.create({
+  banner: {
+    borderRadius: 10,
+    marginHorizontal: hp(2.5),
+    marginTop: hp(5),
+    width: wp(90),
+    height: hp(20) / 2,
+    backgroundColor: '#ccc',
+    fontSize: hp(5),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  partScreen: {
+    marginHorizontal: hp(2.5),
+    marginTop: hp(-5),
+    width: wp(90),
+    height: hp(80) / 2,
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 

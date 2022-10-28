@@ -6,9 +6,10 @@ import FeedView from './src/pages/FeedView';
 import Walk from './src/pages/Walk';
 import Class from './src/pages/Class';
 import MyFeed from './src/pages/MyFeed';
-import {Image, StyleSheet} from 'react-native';
+import {Image, StyleSheet, Text} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import Header from './src/components/Header';
 
 export type TabNavigatorParamList = {
   Home: undefined;
@@ -36,6 +37,7 @@ function App() {
   }, []);
   return (
     <NavigationContainer>
+      <Header />
       <Tab.Navigator
         screenOptions={{
           tabBarShowLabel: false,
@@ -60,8 +62,8 @@ function App() {
                 <Image
                   source={
                     navState === 1
-                      ? require('./src/assets/onHome.png')
-                      : require('./src/assets/home.png')
+                      ? require('./src/assets/image/onHome.png')
+                      : require('./src/assets/image/home.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -85,8 +87,8 @@ function App() {
                 <Image
                   source={
                     navState === 2
-                      ? require('./src/assets/onPointer.png')
-                      : require('./src/assets/pointer.png')
+                      ? require('./src/assets/image/onPointer.png')
+                      : require('./src/assets/image/pointer.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -110,8 +112,8 @@ function App() {
                 <Image
                   source={
                     navState === 3
-                      ? require('./src/assets/onPaw.png')
-                      : require('./src/assets/paw.png')
+                      ? require('./src/assets/image/onPaw.png')
+                      : require('./src/assets/image/paw.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -135,8 +137,8 @@ function App() {
                 <Image
                   source={
                     navState === 4
-                      ? require('./src/assets/onComment.png')
-                      : require('./src/assets/comment.png')
+                      ? require('./src/assets/image/onComment.png')
+                      : require('./src/assets/image/comment.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -160,8 +162,8 @@ function App() {
                 <Image
                   source={
                     navState === 5
-                      ? require('./src/assets/onUser.png')
-                      : require('./src/assets/user.png')
+                      ? require('./src/assets/image/onUser.png')
+                      : require('./src/assets/image/user.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -173,11 +175,5 @@ function App() {
     </NavigationContainer>
   );
 }
-
-const style = StyleSheet.create({
-  main: {
-    paddingTop: 80,
-  },
-});
 
 export default App;
