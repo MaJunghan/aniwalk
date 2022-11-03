@@ -6,7 +6,7 @@ import FeedView from './src/pages/FeedView';
 import Walk from './src/pages/Walk';
 import Class from './src/pages/Class';
 import MyFeed from './src/pages/MyFeed';
-import {Image, StyleSheet, Text} from 'react-native';
+import {Image} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import Header from './src/components/Header';

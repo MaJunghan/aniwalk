@@ -63,9 +63,8 @@ function Home() {
 const styles = StyleSheet.create({
   banner: {
     borderRadius: 10,
-    marginHorizontal: hp(2.5),
-    marginTop: hp(5),
-    width: wp(90),
+    marginTop: hp(2),
+    width: wp(100),
     height: hp(20) / 2,
     backgroundColor: '#ccc',
     fontSize: hp(5),
@@ -74,9 +73,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   partScreen: {
-    marginHorizontal: hp(2.5),
     marginTop: hp(-5),
-    width: wp(90),
+    width: wp(100),
     height: hp(80) / 2,
     borderRadius: 10,
     flexDirection: 'row',
