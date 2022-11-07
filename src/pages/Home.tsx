@@ -14,7 +14,7 @@ function Home() {
   const pet4 = require('../assets/video/pet4.mp4');
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
       <View style={styles.banner}>
         <Text>배너</Text>
       </View>
@@ -63,19 +63,21 @@ function Home() {
 const styles = StyleSheet.create({
   banner: {
     borderRadius: 10,
-    marginTop: hp(2),
-    width: wp(100),
-    height: hp(20) / 2,
+    marginTop: hp(3),
+    marginBottom: hp(-7),
+    marginHorizontal: wp(10),
+    width: wp(80),
+    height: wp(80 / 4),
     backgroundColor: '#ccc',
-    fontSize: hp(5),
-    display: 'flex',
-    alignItems: 'center',
+    fontSize: hp(3),
+    fontWeight: 'bold',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   partScreen: {
-    marginTop: hp(-5),
-    width: wp(100),
+    width: wp(80),
     height: hp(80) / 2,
+    marginHorizontal: wp(10),
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',

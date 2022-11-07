@@ -6,6 +6,7 @@ import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 import android.os.Bundle;
 
+
 public class MainActivity extends ReactActivity {
 
   
@@ -14,6 +15,7 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     RNNaverLoginModule.initialize(this);
+
   }
 
   /**

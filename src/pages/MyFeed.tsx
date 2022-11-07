@@ -1,15 +1,12 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
-import {login} from '@react-native-seoul/kakao-login';
+import {login, KakaoProfile, getProfile} from '@react-native-seoul/kakao-login';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import NaverLogin, {
-  GetProfileResponse,
-  NaverLoginResponse,
-} from '@react-native-seoul/naver-login';
+import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 const Intro = () => {
@@ -23,14 +20,25 @@ const Intro = () => {
   const consumerSecret = 'K7PbKFcaPM';
   const appName = 'com.aniwalk';
   const serviceUrlScheme = 'aniwalk';
+
+  // 카카오 프로필
+  const getKakaoProfile = async (): Promise<void> => {
+    const profile: any = await getProfile();
+    console.log('프로필', profile);
+
+    setResult(JSON.stringify(profile));
+  };
+
   // 카카오 로그인
   const signInWithKakao = async (): Promise<void> => {
     try {
       const token = await login();
+      console.log(token, 'tokenData');
       setResult(JSON.stringify(token));
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('login err', err);
+      getKakaoProfile();
     }
   };
   // 네이버 로그인
@@ -54,10 +62,7 @@ const Intro = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.kakaoBox}>
-        <Pressable
-          onPress={() => {
-            signInWithKakao();
-          }}>
+        <Pressable onPress={signInWithKakao}>
           <Image
             source={require('../assets/image/login/kakao_login.png')}
             style={styles.kakaoIcon}
@@ -109,10 +114,11 @@ export default Intro;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
   },
   kakaoBox: {
     marginTop: wp(80),
-    marginLeft: wp(10),
+    marginHorizontal: wp(10),
   },
   naverBox: {
     width: wp(80),

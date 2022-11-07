@@ -32,6 +32,8 @@ import java.util.List;
  * <p>Please note that this class is used ONLY if you opt-in for the New Architecture (see the
  * `newArchEnabled` property). Is ignored otherwise.
  */
+
+
 public class MainApplicationReactNativeHost extends ReactNativeHost {
   public MainApplicationReactNativeHost(Application application) {
     super(application);
@@ -55,6 +57,7 @@ public class MainApplicationReactNativeHost extends ReactNativeHost {
     // inside a ReactPackage.
     return packages;
   }
+
 
   @Override
   protected String getJSMainModuleName() {
