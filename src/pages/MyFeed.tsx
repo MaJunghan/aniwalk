@@ -9,7 +9,7 @@ import {
 import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
-const Intro = () => {
+const MyFeed = () => {
   const [result, setResult] = useState<string>('');
   console.log(result);
   const [success, setSuccessResponse] =
@@ -110,7 +110,7 @@ const Intro = () => {
     </SafeAreaView>
   );
 };
-export default Intro;
+export default MyFeed;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

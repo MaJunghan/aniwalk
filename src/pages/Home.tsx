@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import Slick from 'react-native-slick';
+import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
 import {
   widthPercentageToDP as wp,
@@ -8,54 +8,68 @@ import {
 } from 'react-native-responsive-screen';
 
 function Home() {
+  const [slideTime, setSlideTime] = useState(10); // 초기 슬라이딩 시간 1초
   const pet1 = require('../assets/video/pet1.mp4');
   const pet2 = require('../assets/video/pet2.mp4');
   const pet3 = require('../assets/video/pet3.mp4');
   const pet4 = require('../assets/video/pet4.mp4');
+
+  // paused : 일시중지여부 , repeat : 반복여부
+  const swiperData: any = [
+    {
+      id: 1,
+      require: pet1,
+      mode: 'contain',
+      paused: false,
+      repeat: true,
+    },
+    {
+      id: 2,
+      require: pet2,
+      mode: 'contain',
+      paused: false,
+      repeat: true,
+    },
+    {
+      id: 3,
+      require: pet3,
+      mode: 'contain',
+      paused: false,
+      repeat: true,
+    },
+    {
+      id: 4,
+      require: pet4,
+      mode: 'contain',
+      paused: false,
+      repeat: true,
+    },
+  ];
+
+  useEffect(() => {
+    setSlideTime(10);
+  }, []);
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
       <View style={styles.banner}>
         <Text>배너</Text>
       </View>
-      <Slick dotStyle={{display: 'none'}} activeDotStyle={{display: 'none'}}>
-        <View>
-          <Video
-            source={pet1}
-            style={styles.partScreen}
-            paused={false}
-            resizeMode={'contain'}
-            repeat={false}
-          />
-        </View>
-        <View>
-          <Video
-            source={pet2}
-            style={styles.partScreen}
-            paused={false}
-            resizeMode={'contain'}
-            repeat={false}
-          />
-        </View>
-        <View>
-          <Video
-            source={pet3}
-            style={styles.partScreen}
-            paused={false}
-            resizeMode={'contain'}
-            repeat={false}
-          />
-        </View>
-        <View>
-          <Video
-            source={pet4}
-            style={styles.partScreen}
-            paused={false}
-            resizeMode={'contain'}
-            repeat={false}
-          />
-        </View>
-      </Slick>
+      <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
+        {swiperData.map((item: any) => {
+          return (
+            <View key={item.id}>
+              <Video
+                source={item.require}
+                paused={item.paused}
+                resizeMode={item.mode}
+                repeat={item.repeat}
+                style={styles.partScreen}
+              />
+            </View>
+          );
+        })}
+      </Swiper>
     </SafeAreaView>
   );
 }
