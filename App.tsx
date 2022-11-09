@@ -62,8 +62,8 @@ function App() {
                 <Image
                   source={
                     navState === 1
-                      ? require('./src/assets/image/onHome.png')
-                      : require('./src/assets/image/home.png')
+                      ? require('./src/assets/image/nav/onHome.png')
+                      : require('./src/assets/image/nav/home.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -87,8 +87,8 @@ function App() {
                 <Image
                   source={
                     navState === 2
-                      ? require('./src/assets/image/onPointer.png')
-                      : require('./src/assets/image/pointer.png')
+                      ? require('./src/assets/image/nav/onPointer.png')
+                      : require('./src/assets/image/nav/pointer.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -112,8 +112,8 @@ function App() {
                 <Image
                   source={
                     navState === 3
-                      ? require('./src/assets/image/onPaw.png')
-                      : require('./src/assets/image/paw.png')
+                      ? require('./src/assets/image/nav/onPaw.png')
+                      : require('./src/assets/image/nav/paw.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -137,8 +137,8 @@ function App() {
                 <Image
                   source={
                     navState === 4
-                      ? require('./src/assets/image/onComment.png')
-                      : require('./src/assets/image/comment.png')
+                      ? require('./src/assets/image/nav/onComment.png')
+                      : require('./src/assets/image/nav/comment.png')
                   }
                   style={{width: 24, height: 24}}
                 />
@@ -162,8 +162,8 @@ function App() {
                 <Image
                   source={
                     navState === 5
-                      ? require('./src/assets/image/onUser.png')
-                      : require('./src/assets/image/user.png')
+                      ? require('./src/assets/image/nav/onUser.png')
+                      : require('./src/assets/image/nav/user.png')
                   }
                   style={{width: 24, height: 24}}
                 />

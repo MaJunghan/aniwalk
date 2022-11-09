@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
 import {
@@ -9,37 +9,33 @@ import {
 
 function Home() {
   const [slideTime, setSlideTime] = useState(10); // 초기 슬라이딩 시간 1초
-  const pet1 = require('../assets/video/pet1.mp4');
-  const pet2 = require('../assets/video/pet2.mp4');
-  const pet3 = require('../assets/video/pet3.mp4');
-  const pet4 = require('../assets/video/pet4.mp4');
 
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: any = [
     {
       id: 1,
-      require: pet1,
+      require: require('../assets/video/pet1.mp4'),
       mode: 'contain',
       paused: false,
       repeat: true,
     },
     {
       id: 2,
-      require: pet2,
+      require: require('../assets/video/pet2.mp4'),
       mode: 'contain',
       paused: false,
       repeat: true,
     },
     {
       id: 3,
-      require: pet3,
+      require: require('../assets/video/pet3.mp4'),
       mode: 'contain',
       paused: false,
       repeat: true,
     },
     {
       id: 4,
-      require: pet4,
+      require: require('../assets/video/pet4.mp4'),
       mode: 'contain',
       paused: false,
       repeat: true,
@@ -52,9 +48,62 @@ function Home() {
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
-      <View style={styles.banner}>
-        <Text>배너</Text>
+      <Text
+        style={{
+          width: wp(100),
+          height: hp(5),
+          marginTop: wp(3),
+          marginLeft: wp(5),
+          fontSize: hp(3),
+        }}>
+        Benner
+      </Text>
+      <View
+        style={{
+          width: wp(90),
+          height: hp(90 / 4),
+          marginTop: hp(1),
+          marginHorizontal: wp(5),
+          borderRadius: 20,
+          overflow: 'hidden',
+        }}>
+        <Swiper showsButtons={false} showsPagination={false}>
+          <Image
+            source={require('../assets/image/banner/1.jpg')}
+            style={{
+              resizeMode: 'contain',
+              height: '100%',
+              width: '100%',
+            }}
+          />
+          <Image
+            source={require('../assets/image/banner/2.jpg')}
+            style={{
+              resizeMode: 'contain',
+              height: '100%',
+              width: '100%',
+            }}
+          />
+          <Image
+            source={require('../assets/image/banner/3.jpg')}
+            style={{
+              resizeMode: 'contain',
+              height: '100%',
+              width: '100%',
+            }}
+          />
+        </Swiper>
       </View>
+      <Text
+        style={{
+          width: wp(100),
+          height: hp(5),
+          marginTop: wp(5),
+          marginLeft: wp(5),
+          fontSize: hp(3),
+        }}>
+        제일 인기 있는 동영상
+      </Text>
       <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
         {swiperData.map((item: any) => {
           return (
@@ -75,26 +124,15 @@ function Home() {
 }
 
 const styles = StyleSheet.create({
-  banner: {
-    borderRadius: 10,
-    marginTop: hp(3),
-    marginBottom: hp(-7),
-    marginHorizontal: wp(10),
-    width: wp(80),
-    height: wp(80 / 4),
-    backgroundColor: '#ccc',
-    fontSize: hp(3),
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   partScreen: {
-    width: wp(80),
-    height: hp(80) / 2,
-    marginHorizontal: wp(10),
-    borderRadius: 10,
+    width: wp(90),
+    height: hp(90) / 4,
+    marginTop: hp(1),
+    marginHorizontal: wp(5),
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 20,
+    overflow: 'hidden',
   },
 });
 
