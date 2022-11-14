@@ -6,7 +6,6 @@ import {
   Text,
   View,
   Dimensions,
-  ImageResizeMode,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
@@ -15,7 +14,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Carousel from '../components/Carousel';
-import {NativeModuleError} from '@react-native-google-signin/google-signin';
+import {CubeNavigationHorizontal} from 'react-native-3dcube-navigation';
 
 function Home() {
   const [slideTime, setSlideTime] = useState(10); // 초기 슬라이딩 시간 1초
@@ -116,7 +115,7 @@ function Home() {
       <Carousel
         page={page}
         setPage={setPage}
-        gap={16}
+        gap={15}
         data={RainbowSheet}
         pageWidth={wp(90)}
         RenderItem={RainbowSheetPage}
@@ -127,19 +126,22 @@ function Home() {
           height: hp(5),
           marginLeft: wp(5),
           fontSize: hp(3),
+          marginTop: hp(3),
         }}>
-        제일 인기 있는 동영상
+        인기 동영상
       </Text>
-      <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
+      <Swiper
+        autoplay
+        showsPagination={false}
+        autoplayTimeout={slideTime}
+        style={{marginTop: hp(-12)}}>
         {swiperData.map((item: any) => {
           return (
             <View
               key={item.id}
               style={{
-                width: wp(90),
-                height: hp(90 / 3),
-                marginHorizontal: wp(5),
-                overflow: 'hidden',
+                width: wp(100),
+                height: hp(50),
               }}>
               <Video
                 source={item.require}
