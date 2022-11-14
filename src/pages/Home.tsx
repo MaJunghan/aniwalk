@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Dimensions,
+  ImageResizeMode,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
@@ -13,10 +14,12 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import Carousel from '../components/Carousel';
+import {NativeModuleError} from '@react-native-google-signin/google-signin';
 
 function Home() {
   const [slideTime, setSlideTime] = useState(10); // 초기 슬라이딩 시간 1초
-  const screenWidth = Math.round(Dimensions.get('window').width);
+  const [page, setPage] = useState(0);
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: any = [
     {
@@ -49,63 +52,79 @@ function Home() {
     },
   ];
 
+  const RainbowSheetPage = ({item}: {item: any}) => {
+    return (
+      <View
+        style={{
+          width: 350,
+          height: 300,
+          borderRadius: 10,
+          overflow: 'hidden',
+        }}>
+        <Image
+          key={item.id}
+          source={item.require}
+          style={{
+            resizeMode: item.resizeMode,
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height,
+          }}
+        />
+      </View>
+    );
+  };
+
+  const RainbowSheet = [
+    {
+      id: 1,
+      require: require('../assets/image/banner/1.jpg'),
+      resizeMode: 'cover',
+    },
+    {
+      id: 2,
+      require: require('../assets/image/banner/2.jpg'),
+      resizeMode: 'cover',
+    },
+    {
+      id: 3,
+      require: require('../assets/image/banner/3.jpg'),
+      resizeMode: 'cover',
+    },
+    {
+      id: 4,
+      require: require('../assets/image/banner/4.jpg'),
+      resizeMode: 'cover',
+    },
+    {
+      id: 5,
+      require: require('../assets/image/banner/5.jpg'),
+      resizeMode: 'cover',
+    },
+    {
+      id: 6,
+      require: require('../assets/image/banner/6.jpg'),
+      resizeMode: 'cover',
+    },
+  ];
+
   useEffect(() => {
     setSlideTime(10);
   }, []);
 
   return (
     <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
+      <Carousel
+        page={page}
+        setPage={setPage}
+        gap={16}
+        data={RainbowSheet}
+        pageWidth={wp(90)}
+        RenderItem={RainbowSheetPage}
+      />
       <Text
         style={{
           width: wp(100),
           height: hp(5),
-          marginTop: wp(3),
-          marginLeft: wp(5),
-          fontSize: hp(3),
-        }}>
-        Benner
-      </Text>
-      <View
-        style={{
-          width: wp(90),
-          height: hp(90 / 4),
-          marginTop: hp(1),
-          marginHorizontal: wp(5),
-          borderRadius: 30,
-          overflow: 'hidden',
-        }}>
-        <Swiper showsButtons={false} showsPagination={false}>
-          <Image
-            source={require('../assets/image/banner/1.jpg')}
-            style={{
-              resizeMode: 'contain',
-              height: '100%',
-              width: '100%',
-            }}
-          />
-          <Image
-            source={require('../assets/image/banner/2.jpg')}
-            style={{
-              resizeMode: 'contain',
-              height: '100%',
-              width: '100%',
-            }}
-          />
-          <Image
-            source={require('../assets/image/banner/3.jpg')}
-            style={{
-              resizeMode: 'contain',
-              height: '100%',
-              width: '100%',
-            }}
-          />
-        </Swiper>
-      </View>
-      <Text
-        style={{
-          width: wp(100),
-          height: hp(5),
-          marginTop: wp(5),
           marginLeft: wp(5),
           fontSize: hp(3),
         }}>
@@ -118,9 +137,8 @@ function Home() {
               key={item.id}
               style={{
                 width: wp(90),
-                height: hp(90 / 4),
+                height: hp(90 / 3),
                 marginHorizontal: wp(5),
-                borderRadius: 30,
                 overflow: 'hidden',
               }}>
               <Video

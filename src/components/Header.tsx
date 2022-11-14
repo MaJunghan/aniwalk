@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: wp(5),
   },
   text1: {
     color: '#66FF66',
     fontSize: wp(5),
-    height: hp(10),
     width: wp(20),
     fontWeight: 'bold',
     backgroundColor: '#FFFF66',
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   text2: {
     color: '#ffffff',
     fontSize: wp(5),
-    height: hp(10),
     width: wp(40),
     fontWeight: 'bold',
     backgroundColor: '#B266FF',
@@ -42,7 +41,6 @@ const styles = StyleSheet.create({
   text3: {
     color: '#ffffff',
     fontSize: wp(5),
-    height: hp(10),
     width: wp(40),
     fontWeight: 'bold',
     backgroundColor: '#FF99FF',
