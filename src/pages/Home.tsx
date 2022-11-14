@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
@@ -111,7 +112,19 @@ function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
+    <SafeAreaView style={{flex: 1}}>
+      <Text
+        style={{
+          width: wp(100),
+          height: hp(5),
+          marginLeft: wp(5),
+          fontSize: hp(3),
+          marginTop: hp(3),
+          fontFamily: 'DancingScript-Bold',
+          color: 'black',
+        }}>
+        Banner
+      </Text>
       <Carousel
         page={page}
         setPage={setPage}
@@ -130,7 +143,7 @@ function Home() {
           fontFamily: 'DancingScript-Bold',
           color: 'black',
         }}>
-        인기 동영상
+        Hot Video
       </Text>
       <Swiper
         autoplay

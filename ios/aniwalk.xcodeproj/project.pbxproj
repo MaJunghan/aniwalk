@@ -16,7 +16,7 @@
 		A093F85A53C230542D977CB4 /* libPods-aniwalk-aniwalkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D152F9EBA73FD34407FCFF2 /* libPods-aniwalk-aniwalkTests.a */; };
 		EF065B3529056EE20031C8D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF065B3429056EE10031C8D6 /* GoogleService-Info.plist */; };
 		EF59C7E228FD879500FCBC6E /* SwiftBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF59C7E128FD879500FCBC6E /* SwiftBridge.swift */; };
-		EFB73AED29223C7300C8650C /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = EFB73AEC29223C7300C8650C /* Fonts */; };
+		EFE4303829227D7200C53671 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = EFE4303729227D7200C53671 /* Fonts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,7 @@
 		EF065B3429056EE10031C8D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "aniwalk/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EF59C7E028FD879500FCBC6E /* aniwalk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "aniwalk-Bridging-Header.h"; sourceTree = "<group>"; };
 		EF59C7E128FD879500FCBC6E /* SwiftBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftBridge.swift; sourceTree = "<group>"; };
-		EFB73AEC29223C7300C8650C /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
+		EFE4303729227D7200C53671 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				EFB73AEC29223C7300C8650C /* Fonts */,
+				EFE4303729227D7200C53671 /* Fonts */,
 				EF59C7E128FD879500FCBC6E /* SwiftBridge.swift */,
 				13B07FAE1A68108700A75B9A /* aniwalk */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -254,10 +254,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFB73AED29223C7300C8650C /* Fonts in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				EF065B3529056EE20031C8D6 /* GoogleService-Info.plist in Resources */,
+				EFE4303829227D7200C53671 /* Fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
