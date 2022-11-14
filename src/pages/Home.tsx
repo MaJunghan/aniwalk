@@ -55,8 +55,8 @@ function Home() {
     return (
       <View
         style={{
-          width: 350,
-          height: 300,
+          width: wp(90),
+          height: hp(30),
           borderRadius: 10,
           overflow: 'hidden',
         }}>
@@ -115,7 +115,7 @@ function Home() {
       <Carousel
         page={page}
         setPage={setPage}
-        gap={15}
+        gap={wp(3)}
         data={RainbowSheet}
         pageWidth={wp(90)}
         RenderItem={RainbowSheetPage}
@@ -127,6 +127,8 @@ function Home() {
           marginLeft: wp(5),
           fontSize: hp(3),
           marginTop: hp(3),
+          fontFamily: 'DancingScript-Bold',
+          color: 'black',
         }}>
         인기 동영상
       </Text>
@@ -140,8 +142,9 @@ function Home() {
             <View
               key={item.id}
               style={{
-                width: wp(100),
+                width: wp(90),
                 height: hp(50),
+                marginHorizontal: wp(5),
               }}>
               <Video
                 source={item.require}
