@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
 import {
@@ -9,7 +16,7 @@ import {
 
 function Home() {
   const [slideTime, setSlideTime] = useState(10); // 초기 슬라이딩 시간 1초
-
+  const screenWidth = Math.round(Dimensions.get('window').width);
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: any = [
     {
@@ -64,7 +71,7 @@ function Home() {
           height: hp(90 / 4),
           marginTop: hp(1),
           marginHorizontal: wp(5),
-          borderRadius: 20,
+          borderRadius: 30,
           overflow: 'hidden',
         }}>
         <Swiper showsButtons={false} showsPagination={false}>
@@ -107,7 +114,15 @@ function Home() {
       <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
         {swiperData.map((item: any) => {
           return (
-            <View key={item.id}>
+            <View
+              key={item.id}
+              style={{
+                width: wp(90),
+                height: hp(90 / 4),
+                marginHorizontal: wp(5),
+                borderRadius: 30,
+                overflow: 'hidden',
+              }}>
               <Video
                 source={item.require}
                 paused={item.paused}
@@ -125,14 +140,8 @@ function Home() {
 
 const styles = StyleSheet.create({
   partScreen: {
-    width: wp(90),
-    height: hp(90) / 4,
-    marginTop: hp(1),
-    marginHorizontal: wp(5),
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 20,
-    overflow: 'hidden',
+    height: '100%',
+    width: '100%',
   },
 });
 
