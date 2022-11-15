@@ -45,12 +45,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: wp(8),
+    marginVertical: hp(4),
     backgroundColor: 'white',
     height: hp(8),
   },
   logo1: {
     width: wp(30),
-    marginRight: wp(30),
+    marginRight: wp(25),
     backgroundColor: 'white',
   },
   logo2: {
