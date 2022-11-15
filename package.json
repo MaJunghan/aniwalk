@@ -22,7 +22,6 @@
     "link": "^1.5.1",
     "react": "18.1.0",
     "react-native": "^0.70.1",
-    "react-native-3dcube-navigation": "^1.0.5",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-nmap": "^0.0.66",
     "react-native-responsive-screen": "^1.4.2",
