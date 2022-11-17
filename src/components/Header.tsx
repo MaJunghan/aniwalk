@@ -44,15 +44,14 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: wp(8),
-    marginVertical: hp(4),
-    backgroundColor: 'white',
-    height: hp(8),
+    paddingHorizontal: wp(8),
+    paddingVertical: hp(4),
+    height: hp(4),
+    backgroundColor: '#ffffff',
   },
   logo1: {
     width: wp(30),
     marginRight: wp(25),
-    backgroundColor: 'white',
   },
   logo2: {
     width: wp(10),

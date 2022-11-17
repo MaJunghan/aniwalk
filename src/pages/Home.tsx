@@ -119,10 +119,11 @@ function Home() {
     return (
       <View
         style={{
-          width: wp(30),
-          height: hp(20),
+          width: wp(43),
+          height: hp(25),
           borderRadius: 10,
           overflow: 'hidden',
+          backgroundColor: '#ffffff',
         }}>
         <Image
           key={item.id}
@@ -146,7 +147,7 @@ function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={{flex: 1}}>
       <ScrollView style={styles.scrollView}>
         <View>
           <Text style={styles.inputText}>Banner</Text>
@@ -159,7 +160,7 @@ function Home() {
             RenderItem={RainbowSheetPage}
           />
         </View>
-        <View>
+        <View style={{marginTop: hp(-15)}}>
           <Text style={styles.inputText}>Hot Video</Text>
           <Swiper
             autoplay
@@ -173,7 +174,7 @@ function Home() {
                   style={{
                     width: wp(100),
                     height: hp(50),
-                    marginTop: hp(-12),
+                    marginTop: hp(-8),
                     borderRadius: 20,
                   }}>
                   <Video
@@ -193,7 +194,7 @@ function Home() {
           <Carousel
             page={page}
             setPage={setPage}
-            gap={wp(15)}
+            gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
             RenderItem={RainCoupleList}
@@ -204,7 +205,7 @@ function Home() {
           <Carousel
             page={page}
             setPage={setPage}
-            gap={wp(15)}
+            gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
             RenderItem={RainCoupleList}
@@ -215,7 +216,7 @@ function Home() {
           <Carousel
             page={page}
             setPage={setPage}
-            gap={wp(15)}
+            gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
             RenderItem={RainCoupleList}
@@ -226,7 +227,7 @@ function Home() {
           <Carousel
             page={page}
             setPage={setPage}
-            gap={wp(15)}
+            gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
             RenderItem={RainCoupleList}
@@ -248,7 +249,7 @@ const styles = StyleSheet.create({
     height: hp(5),
     marginLeft: wp(5),
     fontSize: hp(3),
-    marginTop: hp(3),
+    marginTop: hp(7),
     fontFamily: 'DancingScript-Bold',
     color: 'black',
   },
