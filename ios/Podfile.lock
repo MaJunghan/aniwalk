@@ -158,6 +158,18 @@ PODS:
   - naveridlogin-sdk-ios (4.1.5)
   - NMapsMap (3.16.0)
   - OpenSSL-Universal (1.1.1100)
+  - Permission-Camera (3.6.1):
+    - RNPermissions
+  - Permission-LocationAccuracy (3.6.1):
+    - RNPermissions
+  - Permission-LocationAlways (3.6.1):
+    - RNPermissions
+  - Permission-LocationWhenInUse (3.6.1):
+    - RNPermissions
+  - Permission-Notifications (3.6.1):
+    - RNPermissions
+  - Permission-PhotoLibrary (3.6.1):
+    - RNPermissions
   - PromisesObjC (2.1.1)
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -478,6 +490,8 @@ PODS:
   - RNNaverLogin (3.0.0-rc.1):
     - naveridlogin-sdk-ios (~> 4.1.5)
     - React
+  - RNPermissions (3.6.1):
+    - React-Core
   - RNScreens (3.17.0):
     - React-Core
     - React-RCTImage
@@ -519,6 +533,12 @@ DEPENDENCIES:
   - "kakao-login (from `../node_modules/@react-native-seoul/kakao-login`)"
   - libevent (~> 2.1.12)
   - OpenSSL-Universal (= 1.1.1100)
+  - Permission-Camera (from `../node_modules/react-native-permissions/ios/Camera`)
+  - Permission-LocationAccuracy (from `../node_modules/react-native-permissions/ios/LocationAccuracy`)
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse`)
+  - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications`)
+  - Permission-PhotoLibrary (from `../node_modules/react-native-permissions/ios/PhotoLibrary`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -555,6 +575,7 @@ DEPENDENCIES:
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - "RNNaverLogin (from `../node_modules/@react-native-seoul/naver-login`)"
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -607,6 +628,18 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes/hermes-engine.podspec"
   kakao-login:
     :path: "../node_modules/@react-native-seoul/kakao-login"
+  Permission-Camera:
+    :path: "../node_modules/react-native-permissions/ios/Camera"
+  Permission-LocationAccuracy:
+    :path: "../node_modules/react-native-permissions/ios/LocationAccuracy"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse"
+  Permission-Notifications:
+    :path: "../node_modules/react-native-permissions/ios/Notifications"
+  Permission-PhotoLibrary:
+    :path: "../node_modules/react-native-permissions/ios/PhotoLibrary"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -675,6 +708,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-google-signin/google-signin"
   RNNaverLogin:
     :path: "../node_modules/@react-native-seoul/naver-login"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -716,6 +751,12 @@ SPEC CHECKSUMS:
   naveridlogin-sdk-ios: 4351fe7162cd6b8b6dbb37bd7cc205304fa1d889
   NMapsMap: a2593320fca2bb09e521c05b4dffee4da42e96ed
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
+  Permission-Camera: bf6791b17c7f614b6826019fcfdcc286d3a107f6
+  Permission-LocationAccuracy: 76df17de5c6b8bc2eee34e61ee92cdd7a864c73d
+  Permission-LocationAlways: 8d99b025c9f73c696e0cdb367e42525f2e9a26f2
+  Permission-LocationWhenInUse: 3ba99e45c852763f730eabecec2870c2382b7bd4
+  Permission-Notifications: 150484ae586eb9be4e32217582a78350a9bb31c3
+  Permission-PhotoLibrary: 5b34ca67279f7201ae109cef36f9806a6596002d
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: 1b4e0388c8ad776b2d23f8135926fa4e7ddacdf4
@@ -751,11 +792,12 @@ SPEC CHECKSUMS:
   RNFBAuth: 4feff62e1133f25cc25a55d481ed534f4614d4c7
   RNGoogleSignin: ec96ded826fcdca71ab5f58b1d086e969cabe67b
   RNNaverLogin: 21bf8065f8e0fca9f5502d0fc81f7967a06d858c
+  RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNScreens: 0df01424e9e0ed7827200d6ed1087ddd06c493f9
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b546311ff07380df4c0bae0df27fe7ed015195a3
+PODFILE CHECKSUM: da9a0858f58405162478375358a2cf58626d87e7
 
 COCOAPODS: 1.11.3
