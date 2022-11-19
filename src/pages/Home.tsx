@@ -97,7 +97,7 @@ function Home() {
       <View
         style={{
           width: wp(90),
-          height: hp(20),
+          height: hp(25),
           borderRadius: 10,
           marginBottom: hp(10),
           overflow: 'hidden',
@@ -120,7 +120,7 @@ function Home() {
       <View
         style={{
           width: wp(43),
-          height: hp(25),
+          height: hp(30),
           borderRadius: 10,
           overflow: 'hidden',
           backgroundColor: '#ffffff',
@@ -147,10 +147,9 @@ function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <ScrollView style={styles.scrollView}>
         <View>
-          <Text style={styles.inputText}>Banner</Text>
           <Carousel
             page={page}
             setPage={setPage}
@@ -173,9 +172,8 @@ function Home() {
                   key={item.id}
                   style={{
                     width: wp(100),
-                    height: hp(50),
-                    marginTop: hp(-8),
-                    borderRadius: 20,
+                    height: hp(60),
+                    marginTop: hp(-15),
                   }}>
                   <Video
                     source={item.require}
@@ -200,7 +198,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(1)}}>
+        <View style={{marginTop: hp(-5)}}>
           <Text style={styles.inputText}>이달의 Best MeMe!</Text>
           <Carousel
             page={page}
@@ -211,7 +209,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(1)}}>
+        <View style={{marginTop: hp(-5)}}>
           <Text style={styles.inputText}>이달의 Best 산책로!</Text>
           <Carousel
             page={page}
@@ -222,7 +220,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(1)}}>
+        <View style={{marginTop: hp(-5)}}>
           <Text style={styles.inputText}>이달의 Best 집사!</Text>
           <Carousel
             page={page}
@@ -249,7 +247,7 @@ const styles = StyleSheet.create({
     height: hp(5),
     marginLeft: wp(5),
     fontSize: hp(3),
-    marginTop: hp(7),
+    marginTop: hp(10),
     fontFamily: 'DancingScript-Bold',
     color: 'black',
   },

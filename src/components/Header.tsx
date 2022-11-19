@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Dimensions,
   Image,
   SafeAreaView,
   StyleSheet,
@@ -14,7 +13,7 @@ import {
 
 function Header() {
   return (
-    <SafeAreaView style={styles.header}>
+    <View style={styles.header}>
       <TouchableOpacity>
         <Image
           source={require('../assets/image/icon/logo.png')}
@@ -34,7 +33,7 @@ function Header() {
           resizeMode={'contain'}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -43,18 +42,21 @@ export default Header;
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: wp(8),
-    paddingVertical: hp(4),
-    height: hp(4),
+    paddingHorizontal: wp(10),
+    paddingVertical: hp(5),
+    height: hp(5),
     backgroundColor: '#ffffff',
   },
   logo1: {
-    width: wp(30),
-    marginRight: wp(25),
+    width: wp(50),
+    height: hp(5),
+    marginLeft: wp(10),
   },
   logo2: {
-    width: wp(10),
+    width: wp(7),
     height: hp(3.5),
+    marginRight: wp(10),
   },
 });

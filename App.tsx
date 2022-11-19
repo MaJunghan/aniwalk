@@ -10,6 +10,7 @@ import {Image} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import Header from './src/components/Header';
+import usePermissions from './src/hooks/usePermissions';
 
 export type TabNavigatorParamList = {
   Home: undefined;
@@ -24,6 +25,8 @@ const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 function App() {
   let [navState, setNavState] = useState(1);
   console.log(navState);
+
+  usePermissions();
 
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
