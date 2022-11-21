@@ -7,6 +7,8 @@ import {
   View,
   Dimensions,
   ScrollView,
+  Platform,
+  TextInput,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
@@ -15,6 +17,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Carousel from '../components/Carousel';
+import Header from '../components/Header';
 
 function Home() {
   const [slideTime, setSlideTime] = useState(14); // 초기 슬라이딩 시간 1초
@@ -138,17 +141,14 @@ function Home() {
     );
   };
 
-  const onMomentumScrollEnd = () => {
-    console.log('scroll');
-  };
-
   useEffect(() => {
     setSlideTime(10);
   }, []);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
+        <Header />
         <View>
           <Carousel
             page={page}
@@ -159,13 +159,9 @@ function Home() {
             RenderItem={RainbowSheetPage}
           />
         </View>
-        <View style={{marginTop: hp(-15)}}>
+        <View style={styles.video}>
           <Text style={styles.inputText}>Hot Video</Text>
-          <Swiper
-            autoplay
-            showsPagination={false}
-            autoplayTimeout={slideTime}
-            onMomentumScrollEnd={onMomentumScrollEnd}>
+          <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
             {swiperData.map((item: any) => {
               return (
                 <View
@@ -173,7 +169,7 @@ function Home() {
                   style={{
                     width: wp(100),
                     height: hp(60),
-                    marginTop: hp(-15),
+                    marginTop: hp(-40),
                   }}>
                   <Video
                     source={item.require}
@@ -186,8 +182,55 @@ function Home() {
               );
             })}
           </Swiper>
+          <View
+            style={
+              Platform.OS === 'ios'
+                ? styles.videoIconBoxIos
+                : styles.videoIconBoxAnd
+            }>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Image
+                source={require('../assets/image/icon/love.png')}
+                resizeMode={'contain'}
+                style={styles.videoIcon}
+              />
+              <Image
+                source={require('../assets/image/icon/speech.png')}
+                resizeMode={'contain'}
+                style={[styles.videoIcon, {marginLeft: wp(4)}]}
+              />
+              <Image
+                source={require('../assets/image/icon/send.png')}
+                resizeMode={'contain'}
+                style={[styles.videoIcon, , {marginLeft: wp(4)}]}
+              />
+            </View>
+            <Text style={{fontSize: wp(3)}}>좋아요 101개</Text>
+          </View>
+          <View style={styles.comment}>
+            <View style={styles.avatar}>
+              <Image
+                source={require('../assets/image/icon/avatar.webp')}
+                resizeMode={'contain'}
+                style={
+                  Platform.OS === 'ios'
+                    ? [styles.videoIcon, {marginLeft: wp(5)}]
+                    : styles.avatarAnd
+                }
+              />
+              <TextInput
+                placeholder="댓글 달기..."
+                style={{marginLeft: wp(5)}}
+              />
+            </View>
+          </View>
         </View>
-        <View style={{marginTop: hp(-60)}}>
+
+        <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best Couple!</Text>
           <Carousel
             page={page}
@@ -198,7 +241,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(-5)}}>
+        <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best MeMe!</Text>
           <Carousel
             page={page}
@@ -209,7 +252,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(-5)}}>
+        <View style={{marginTop: hp(1)}}>
           <Text style={styles.inputText}>이달의 Best 산책로!</Text>
           <Carousel
             page={page}
@@ -220,7 +263,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(-5)}}>
+        <View style={{marginTop: hp(1)}}>
           <Text style={styles.inputText}>이달의 Best 집사!</Text>
           <Carousel
             page={page}
@@ -238,25 +281,54 @@ function Home() {
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+  video: {
+    marginTop: hp(-10),
+  },
+  videoIconBoxIos: {
+    marginTop: hp(-77),
+    flexDirection: 'row',
+    height: hp(7),
+    paddingHorizontal: wp(5),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  videoIconBoxAnd: {
+    marginTop: hp(-72),
+    flexDirection: 'row',
+    height: hp(7),
+    paddingHorizontal: wp(5),
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  videoIcon: {
+    width: wp(7),
+    height: hp(7),
   },
   inputText: {
     width: wp(100),
     height: hp(5),
     marginLeft: wp(5),
     fontSize: hp(3),
-    marginTop: hp(10),
+    marginTop: hp(7),
     fontFamily: 'DancingScript-Bold',
     color: 'black',
   },
   partScreen: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  comment: {
+    marginTop: hp(2),
+  },
+  avatar: {
+    flexDirection: 'row',
+    marginTop: hp(-3),
+  },
+  avatarAnd: {
+    width: wp(7),
+    height: hp(7),
+    marginLeft: wp(5),
+    marginTop: hp(1),
   },
 });
 

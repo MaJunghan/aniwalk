@@ -9,7 +9,6 @@ import MyFeed from './src/pages/MyFeed';
 import {Image} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import Header from './src/components/Header';
 import usePermissions from './src/hooks/usePermissions';
 
 export type TabNavigatorParamList = {
@@ -40,7 +39,6 @@ function App() {
   }, []);
   return (
     <NavigationContainer>
-      <Header />
       <Tab.Navigator
         screenOptions={{
           tabBarShowLabel: false,

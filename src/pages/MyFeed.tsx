@@ -17,6 +17,7 @@ import {
 import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+
 const MyFeed = () => {
   const [result, setResult] = useState<string>('');
   console.log(result);
@@ -85,7 +86,7 @@ const MyFeed = () => {
           <View
             style={{
               flexDirection: 'row',
-              paddingHorizontal: wp(15),
+              paddingHorizontal: wp(10),
               marginVertical: hp(3),
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -93,56 +94,79 @@ const MyFeed = () => {
             <Text>아이디 찾기</Text>
             <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
             <Text>비밀번호 찾기</Text>
+            <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
+            <Text>회원가입</Text>
           </View>
         </View>
-        <View style={styles.social}>
-          <View style={styles.kakaoBox}>
-            <Pressable onPress={signInWithKakao}>
-              <Image
-                source={require('../assets/image/login/kakao_login.png')}
-                style={styles.kakaoIcon}
-              />
-            </Pressable>
-          </View>
-          <View style={styles.naverBox}>
-            <Pressable
-              onPress={() => {
-                naverLogin();
-              }}
-              style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image
-                source={require('../assets/image/login/naver_icon.png')}
-                style={styles.naverLogin}
-              />
-              <Text
-                style={{fontSize: wp(4), marginLeft: wp(24), marginTop: hp(1)}}>
-                네이버 로그인
-              </Text>
-            </Pressable>
-          </View>
+        <View
+          style={{
+            height: hp(30),
+          }}>
           <View
             style={{
-              marginTop: hp(2),
-              width: wp(90),
-              height: hp(7),
-              backgroundColor: '#FFFFFF',
-              justifyContent: 'center',
-              borderWidth: 1,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginTop: hp(7),
             }}>
-            <Pressable
-              onPress={() => onGoogleButtonPress()}
+            <View
               style={{
-                flexDirection: 'row',
-                marginLeft: wp(3),
+                backgroundColor: '#fae100',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 30,
+                width: 55,
+                height: 55,
               }}>
+              <Pressable
+                onPress={() => {
+                  naverLogin();
+                }}>
+                <Image
+                  source={require('../assets/image/login/kakao.png')}
+                  resizeMode={'contain'}
+                  style={{width: 24, height: 24}}
+                />
+              </Pressable>
+            </View>
+            <View>
+              <Pressable
+                onPress={() => {
+                  naverLogin();
+                }}>
+                <Image
+                  source={require('../assets/image/login/naver.png')}
+                  resizeMode={'contain'}
+                  style={{width: 55, height: 55}}
+                />
+              </Pressable>
+            </View>
+            <View
+              style={{
+                backgroundColor: '#ffffff',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 30,
+                width: 55,
+                height: 55,
+                borderWidth: 1,
+                borderColor: '#efefef',
+              }}>
+              <Pressable onPress={() => onGoogleButtonPress()}>
+                <Image
+                  source={require('../assets/image/login/google.png')}
+                  resizeMode={'contain'}
+                  style={{width: 24, height: 24}}
+                />
+              </Pressable>
+            </View>
+            <View>
               <Image
-                source={require('../assets/image/login/google.png')}
-                style={styles.googleLogin}
+                source={require('../assets/image/login/apple.jpg')}
+                resizeMode={'contain'}
+                style={{width: 55, height: 55}}
               />
-              <Text style={{fontSize: wp(4), marginLeft: wp(24)}}>
-                구글 로그인
-              </Text>
-            </Pressable>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -173,7 +197,7 @@ const styles = StyleSheet.create({
     width: wp(90),
     height: hp(7),
     justifyContent: 'center',
-    marginLeft: wp(40),
+    alignItems: 'center',
   },
   inputText: {
     fontSize: hp(2.3),
@@ -182,27 +206,4 @@ const styles = StyleSheet.create({
   },
 
   // 소셜로그인
-  social: {marginTop: wp(10)},
-  kakaoBox: {},
-  naverBox: {
-    width: wp(90),
-    height: hp(7),
-    backgroundColor: '#03C75A',
-    marginTop: wp(3),
-    justifyContent: 'space-between',
-  },
-  kakaoIcon: {
-    width: wp(90),
-    height: hp(7),
-  },
-  naverLogin: {
-    width: wp(60 / 6),
-    height: hp(3),
-    marginTop: hp(2),
-    marginLeft: wp(1),
-  },
-  googleLogin: {
-    width: 20,
-    height: 20,
-  },
 });
