@@ -9,7 +9,6 @@ import MyFeed from './src/pages/MyFeed';
 import {Image} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import usePermissions from './src/hooks/usePermissions';
 
 export type TabNavigatorParamList = {
   Home: undefined;
@@ -18,14 +17,15 @@ export type TabNavigatorParamList = {
   Class: undefined;
   MyFeed: undefined;
 };
+export type RootStackParamList = {
+  SignIn: undefined;
+  SignUp: undefined;
+};
 
 const Tab = createBottomTabNavigator<TabNavigatorParamList>();
 
 function App() {
   let [navState, setNavState] = useState(1);
-  console.log(navState);
-
-  usePermissions();
 
   const googleSigninConfigure = () => {
     GoogleSignin.configure({

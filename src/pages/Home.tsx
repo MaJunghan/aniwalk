@@ -252,7 +252,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(1)}}>
+        <View style={{marginTop: hp(2)}}>
           <Text style={styles.inputText}>이달의 Best 산책로!</Text>
           <Carousel
             page={page}
@@ -274,7 +274,6 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(10)}} />
       </ScrollView>
     </SafeAreaView>
   );
