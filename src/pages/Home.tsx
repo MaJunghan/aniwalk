@@ -281,7 +281,7 @@ function Home() {
 
 const styles = StyleSheet.create({
   video: {
-    marginTop: hp(-10),
+    marginTop: hp(-15),
   },
   videoIconBoxIos: {
     marginTop: hp(-77),
@@ -305,11 +305,11 @@ const styles = StyleSheet.create({
   },
   inputText: {
     width: wp(100),
-    height: hp(5),
+    height: hp(10),
     marginLeft: wp(5),
     fontSize: hp(3),
     marginTop: hp(7),
-    fontFamily: 'DancingScript-Bold',
+    fontFamily: 'NotoSansKR-Light',
     color: 'black',
   },
   partScreen: {

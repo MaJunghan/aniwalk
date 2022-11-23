@@ -92,16 +92,23 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
             </Pressable>
           </View>
           <View style={styles.utility}>
-            <Text>아이디 찾기</Text>
+            <Text style={styles.utilityText}>아이디 찾기</Text>
             <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
-            <Text>비밀번호 찾기</Text>
+            <Text style={styles.utilityText}>비밀번호 찾기</Text>
             <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
             <Pressable onPress={toSignUp}>
-              <Text>회원가입</Text>
+              <Text style={styles.utilityText}>회원가입</Text>
             </Pressable>
           </View>
         </View>
         <View style={styles.social}>
+          <View style={styles.socialLineBox}>
+            <View style={styles.socialLine} />
+            <View>
+              <Text style={styles.socialLineText}>OR</Text>
+            </View>
+            <View style={styles.socialLine} />
+          </View>
           <View style={styles.socialBox}>
             <Pressable
               onPress={() => {
@@ -178,7 +185,7 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: hp(2.3),
     color: '#ffffff',
-    fontFamily: 'DancingScript-Bold',
+    fontFamily: 'NotoSansKR-Bold',
   },
   utility: {
     flexDirection: 'row',
@@ -187,15 +194,34 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  utilityText: {
+    fontFamily: 'NotoSansKR-Light',
+    color: '#666',
+  },
   // 소셜로그인
   social: {
     height: hp(30),
+  },
+  socialLineBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   socialBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: hp(7),
+    marginTop: hp(3),
+  },
+  socialLine: {
+    width: wp(40),
+    height: hp(0.1),
+    backgroundColor: '#666',
+  },
+  socialLineText: {
+    paddingHorizontal: wp(5),
+    fontFamily: 'NotoSansKR-Light',
+    color: '#666',
   },
   kakaoLoginBox: {
     backgroundColor: '#fae100',
