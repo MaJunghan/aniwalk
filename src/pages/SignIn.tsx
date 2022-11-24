@@ -93,9 +93,13 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
           </View>
           <View style={styles.utility}>
             <Text style={styles.utilityText}>아이디 찾기</Text>
-            <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
+            <Text style={{height: wp(4), marginBottom: hp(0.5), color: '#999'}}>
+              |
+            </Text>
             <Text style={styles.utilityText}>비밀번호 찾기</Text>
-            <Text style={{height: wp(4), marginBottom: hp(0.5)}}>|</Text>
+            <Text style={{height: wp(4), marginBottom: hp(0.5), color: '#999'}}>
+              |
+            </Text>
             <Pressable onPress={toSignUp}>
               <Text style={styles.utilityText}>회원가입</Text>
             </Pressable>
@@ -108,6 +112,9 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
               <Text style={styles.socialLineText}>OR</Text>
             </View>
             <View style={styles.socialLine} />
+          </View>
+          <View style={styles.snsLogin}>
+            <Text style={styles.snsText}>SNS 계정으로 로그인</Text>
           </View>
           <View style={styles.socialBox}>
             <Pressable
@@ -196,7 +203,7 @@ const styles = StyleSheet.create({
   },
   utilityText: {
     fontFamily: 'NotoSansKR-Light',
-    color: '#666',
+    color: '#999',
   },
   // 소셜로그인
   social: {
@@ -207,11 +214,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  snsLogin: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp(5),
+  },
   socialBox: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: hp(3),
+    marginTop: hp(1),
   },
   socialLine: {
     width: wp(40),
@@ -240,5 +252,9 @@ const styles = StyleSheet.create({
     height: 55,
     borderWidth: 1,
     borderColor: '#efefef',
+  },
+  snsText: {
+    fontFamily: 'NotoSansKR-Light',
+    color: '#666',
   },
 });

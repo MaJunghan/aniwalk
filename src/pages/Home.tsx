@@ -146,7 +146,7 @@ function Home() {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
       <ScrollView>
         <Header />
         <View>
@@ -209,7 +209,14 @@ function Home() {
                 style={[styles.videoIcon, , {marginLeft: wp(4)}]}
               />
             </View>
-            <Text style={{fontSize: wp(3)}}>좋아요 101개</Text>
+            <Text
+              style={{
+                fontSize: wp(3),
+                fontFamily: 'NotoSansKR-Light',
+                color: '#999',
+              }}>
+              좋아요 101개
+            </Text>
           </View>
           <View style={styles.comment}>
             <View style={styles.avatar}>
@@ -252,7 +259,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(2)}}>
+        <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best 산책로!</Text>
           <Carousel
             page={page}
@@ -263,7 +270,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
-        <View style={{marginTop: hp(1)}}>
+        <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best 집사!</Text>
           <Carousel
             page={page}
@@ -274,6 +281,7 @@ function Home() {
             RenderItem={RainCoupleList}
           />
         </View>
+        <View style={{marginTop: hp(10)}} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -292,9 +300,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   videoIconBoxAnd: {
-    marginTop: hp(-72),
+    marginTop: hp(-74),
     flexDirection: 'row',
-    height: hp(7),
+    height: hp(8),
     paddingHorizontal: wp(5),
     justifyContent: 'space-between',
     alignItems: 'center',
