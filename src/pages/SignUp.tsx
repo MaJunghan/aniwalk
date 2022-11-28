@@ -1,21 +1,9 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {ActivityIndicator, Alert, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {RootStackParamList} from '../../App';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -50,7 +38,7 @@ function SignUp({navigation}: SignUpScreenProps) {
             style={styles.textInput}
             onChangeText={onChangeEmail}
             placeholder="aniwalk@aniwalkmail.com"
-            placeholderTextColor="#666"
+            placeholderTextColor="#999"
             textContentType="emailAddress"
             value={email}
             returnKeyType="next"
@@ -67,12 +55,10 @@ function SignUp({navigation}: SignUpScreenProps) {
           <TextInput
             style={styles.textInput}
             placeholder="비밀번호를 입력해주세요(영문,숫자,특수문자)"
-            placeholderTextColor="#666"
+            placeholderTextColor="#999"
             onChangeText={onChangePassword}
             value={password}
-            keyboardType={
-              Platform.OS === 'android' ? 'default' : 'ascii-capable'
-            }
+            keyboardType={Platform.OS === 'android' ? 'default' : 'ascii-capable'}
             textContentType="password"
             secureTextEntry
             returnKeyType="send"
@@ -87,7 +73,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           <TextInput
             style={styles.textInput}
             placeholder="이름을 입력해주세요."
-            placeholderTextColor="#666"
+            placeholderTextColor="#999"
             onChangeText={onChangeName}
             value={name}
             textContentType="name"
@@ -131,7 +117,7 @@ function SignUp({navigation}: SignUpScreenProps) {
             <TextInput
               style={[styles.textInput, , {width: wp(55), marginRight: wp(5)}]}
               placeholder="01012345678"
-              placeholderTextColor="#666"
+              placeholderTextColor="#999"
               onChangeText={onChangeName}
               value={name}
               textContentType="name"

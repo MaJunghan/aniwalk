@@ -1,30 +1,25 @@
-import React, {useState, useEffect} from 'react';
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  ScrollView,
-  Platform,
-  TextInput,
-} from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {Image, SafeAreaView, StyleSheet, Text, View, Dimensions, ScrollView, Platform, TextInput} from 'react-native';
 import Swiper from 'react-native-swiper';
 import Video from 'react-native-video';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
+
+interface SwiperDataType {
+  id: number;
+  require: NodeRequire;
+  mode: string;
+  paused: boolean;
+  repeat: boolean;
+}
 
 function Home() {
   const [slideTime, setSlideTime] = useState(14); // 초기 슬라이딩 시간 1초
   const [page, setPage] = useState(0);
 
   // paused : 일시중지여부 , repeat : 반복여부
-  const swiperData: any = [
+  const swiperData: SwiperDataType[] = [
     {
       id: 0,
       require: require('../assets/video/tv.mp4'),
@@ -161,7 +156,11 @@ function Home() {
         </View>
         <View style={styles.video}>
           <Text style={styles.inputText}>Hot Video</Text>
-          <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime}>
+          <Swiper
+            autoplay
+            showsPagination={false}
+            autoplayTimeout={slideTime}
+            onIndexChanged={() => console.log('출력되냐?')}>
             {swiperData.map((item: any) => {
               return (
                 <View
@@ -182,12 +181,7 @@ function Home() {
               );
             })}
           </Swiper>
-          <View
-            style={
-              Platform.OS === 'ios'
-                ? styles.videoIconBoxIos
-                : styles.videoIconBoxAnd
-            }>
+          <View style={Platform.OS === 'ios' ? styles.videoIconBoxIos : styles.videoIconBoxAnd}>
             <View
               style={{
                 flexDirection: 'row',
@@ -223,16 +217,9 @@ function Home() {
               <Image
                 source={require('../assets/image/icon/avatar.webp')}
                 resizeMode={'contain'}
-                style={
-                  Platform.OS === 'ios'
-                    ? [styles.videoIcon, {marginLeft: wp(5)}]
-                    : styles.avatarAnd
-                }
+                style={Platform.OS === 'ios' ? [styles.videoIcon, {marginLeft: wp(5)}] : styles.avatarAnd}
               />
-              <TextInput
-                placeholder="댓글 달기..."
-                style={{marginLeft: wp(5)}}
-              />
+              <TextInput placeholder="댓글 달기..." style={{marginLeft: wp(5)}} />
             </View>
           </View>
         </View>

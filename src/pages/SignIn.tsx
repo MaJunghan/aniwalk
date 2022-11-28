@@ -1,18 +1,8 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {login, getProfile} from '@react-native-seoul/kakao-login';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -24,10 +14,8 @@ type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 const MyFeed = ({navigation}: SignUpScreenProps) => {
   const [result, setResult] = useState<string>('');
-  const [success, setSuccessResponse] =
-    useState<NaverLoginResponse['successResponse']>();
-  const [failure, setFailureResponse] =
-    useState<NaverLoginResponse['failureResponse']>();
+  const [success, setSuccessResponse] = useState<NaverLoginResponse['successResponse']>();
+  const [failure, setFailureResponse] = useState<NaverLoginResponse['failureResponse']>();
 
   const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
   const consumerSecret = 'K7PbKFcaPM';
@@ -93,13 +81,9 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
           </View>
           <View style={styles.utility}>
             <Text style={styles.utilityText}>아이디 찾기</Text>
-            <Text style={{height: wp(4), marginBottom: hp(0.5), color: '#999'}}>
-              |
-            </Text>
+            <Text style={{height: wp(5), marginBottom: hp(0.5), color: '#999'}}>|</Text>
             <Text style={styles.utilityText}>비밀번호 찾기</Text>
-            <Text style={{height: wp(4), marginBottom: hp(0.5), color: '#999'}}>
-              |
-            </Text>
+            <Text style={{height: wp(5), marginBottom: hp(0.5), color: '#999'}}>|</Text>
             <Pressable onPress={toSignUp}>
               <Text style={styles.utilityText}>회원가입</Text>
             </Pressable>

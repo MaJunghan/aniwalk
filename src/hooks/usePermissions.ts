@@ -10,21 +10,17 @@ function usePermissions() {
         .then(result => {
           console.log('check location', result);
           if (result === RESULTS.BLOCKED || result === RESULTS.DENIED) {
-            Alert.alert(
-              '이 앱은 위치 권한 허용이 필요합니다.',
-              '앱 설정 화면을 열어서 항상 허용으로 바꿔주세요.',
-              [
-                {
-                  text: '네',
-                  onPress: () => Linking.openSettings(),
-                },
-                {
-                  text: '아니오',
-                  onPress: () => console.log('No Pressed'),
-                  style: 'cancel',
-                },
-              ],
-            );
+            Alert.alert('이 앱은 위치 권한 허용이 필요합니다.', '앱 설정 화면을 열어서 항상 허용으로 바꿔주세요.', [
+              {
+                text: '네',
+                onPress: () => Linking.openSettings(),
+              },
+              {
+                text: '아니오',
+                onPress: () => console.log('No Pressed'),
+                style: 'cancel',
+              },
+            ]);
           }
         })
         .catch(console.error);
@@ -65,11 +61,7 @@ function usePermissions() {
     } else {
       check(PERMISSIONS.IOS.CAMERA)
         .then(result => {
-          if (
-            result === RESULTS.DENIED ||
-            result === RESULTS.LIMITED ||
-            result === RESULTS.GRANTED
-          ) {
+          if (result === RESULTS.DENIED || result === RESULTS.LIMITED || result === RESULTS.GRANTED) {
             return request(PERMISSIONS.IOS.CAMERA);
           } else {
             console.log(result);
