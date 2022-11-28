@@ -9,6 +9,7 @@ import MyFeed from './src/pages/MyFeed';
 import {Image} from 'react-native';
 import {useState, useEffect} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import usePermissions from './src/hooks/usePermissions';
 
 export type TabNavigatorParamList = {
   Home: undefined;
@@ -29,10 +30,10 @@ function App() {
 
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
-      webClientId:
-        '403785232932-789ojdob1p6rbi85hkf6irvjn1qhsor7.apps.googleusercontent.com',
+      webClientId: '403785232932-789ojdob1p6rbi85hkf6irvjn1qhsor7.apps.googleusercontent.com',
     });
   };
+  usePermissions();
 
   useEffect(() => {
     googleSigninConfigure();
