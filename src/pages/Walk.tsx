@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon} from 'react-native-nmap';
 import usePermissions from '../../src/hooks/usePermissions';
 import Geolocation from '@react-native-community/geolocation';
+import {Text} from 'react-native';
 
 function Walk() {
   usePermissions();
@@ -15,7 +16,7 @@ function Walk() {
   console.log(myPosition, '내위치는');
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
+    Geolocation.watchPosition(
       info => {
         setMyPosition({
           latitude: info.coords.latitude,
@@ -26,22 +27,22 @@ function Walk() {
       {
         enableHighAccuracy: true,
         timeout: 20000,
+        distanceFilter: 100,
       },
     );
   }, []);
 
-  return (
-    myPosition && (
-      <NaverMapView
-        style={{width: '100%', height: '100%'}}
-        showsMyLocationButton={true}
-        onTouch={e => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
-        onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
-        onMapClick={e => console.warn('onMapClick', JSON.stringify(e))}>
-        <Marker coordinate={myPosition} pinColor="red" onClick={() => console.warn('onClick! p0')} />
-        <Path coordinates={myPosition} onClick={() => console.warn('onClick! path')} width={10} />
-      </NaverMapView>
-    )
+  return myPosition ? (
+    <NaverMapView
+      style={{width: '100%', height: '100%'}}
+      showsMyLocationButton={true}
+      onTouch={e => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
+      onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
+      onMapClick={e => console.warn('onMapClick', JSON.stringify(e))}>
+      <Marker coordinate={myPosition} pinColor="red" onClick={() => console.warn('onClick! p0')} />
+    </NaverMapView>
+  ) : (
+    <Text>안뜨냐</Text>
   );
 }
 
