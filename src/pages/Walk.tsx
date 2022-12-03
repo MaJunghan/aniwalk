@@ -1,46 +1,68 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import NaverMapView, {Circle, Marker, Path, Polyline, Polygon} from 'react-native-nmap';
-import Geolocation from '@react-native-community/geolocation';
-import {Text} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
+import usePermissions from '../../src/hooks/usePermissions';
+import {useNavigation} from '@react-navigation/native';
 
 function Walk() {
-  const P0 = {latitude: 37.564362, longitude: 126.977011};
-  const P1 = {latitude: 37.565051, longitude: 126.978567};
-  const P2 = {latitude: 37.565383, longitude: 126.976292};
+  usePermissions();
+  const navigation = useNavigation();
+  const watchId = useRef<null | any>(null);
   const [myPosition, setMyPosition] = useState<{
     latitude: number;
     longitude: number;
-  } | null>(null);
-  console.log(myPosition, '내위치는');
+  } | null>();
 
-  useEffect(() => {
-    Geolocation.watchPosition(
+  const removeLocationUpdates = () => {
+    if (watchId != null) {
+      console.log('실행됫어??', myPosition);
+      Geolocation.clearWatch(watchId.current);
+    }
+  };
+
+  const getLocationUpdates = () => {
+    watchId.current = Geolocation.getCurrentPosition(
       info => {
+        const {latitude, longitude} = info.coords;
+        console.log(latitude, '업데이트?');
         setMyPosition({
-          latitude: info.coords.latitude,
-          longitude: info.coords.longitude,
+          latitude,
+          longitude,
         });
       },
       console.error,
       {
         enableHighAccuracy: true,
-        timeout: 20000,
-        distanceFilter: 100,
+        distanceFilter: 0.05,
       },
     );
+  };
+
+  useEffect(() => {
+    navigation.addListener('focus', () => {
+      getLocationUpdates();
+    });
+    navigation.addListener('blur', () => {
+      removeLocationUpdates();
+    });
   }, []);
 
-  return myPosition ? (
-    <NaverMapView
-      style={{width: '100%', height: '100%'}}
-      showsMyLocationButton={true}
-      onTouch={e => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
-      onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
-      onMapClick={e => console.warn('onMapClick', JSON.stringify(e))}>
-      <Marker coordinate={myPosition} pinColor="red" onClick={() => console.warn('onClick! p0')} />
-    </NaverMapView>
-  ) : (
-    <Text>안뜨냐</Text>
+  return (
+    myPosition && (
+      <NaverMapView
+        style={{width: '100%', height: '100%'}}
+        showsMyLocationButton={false}
+        center={{
+          zoom: 15,
+          latitude: myPosition.latitude,
+          longitude: myPosition.longitude,
+        }}
+        onTouch={(e: {nativeEvent: any}) => console.warn('onTouch', JSON.stringify(e.nativeEvent))}
+        onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
+        onMapClick={e => console.warn('onMapClick', JSON.stringify(e))}>
+        <Marker coordinate={myPosition} />
+      </NaverMapView>
+    )
   );
 }
 

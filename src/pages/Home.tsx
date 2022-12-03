@@ -20,74 +20,20 @@ function Home() {
 
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: SwiperDataType[] = [
-    {
-      id: 0,
-      require: require('../assets/video/tv.mp4'),
-      mode: 'contain',
-      paused: false,
-      repeat: false,
-    },
-    {
-      id: 1,
-      require: require('../assets/video/bird.mp4'),
-      mode: 'contain',
-      paused: false,
-      repeat: false,
-    },
-    {
-      id: 2,
-      require: require('../assets/video/pet2.mp4'),
-      mode: 'contain',
-      paused: false,
-      repeat: false,
-    },
-    {
-      id: 3,
-      require: require('../assets/video/pet3.mp4'),
-      mode: 'contain',
-      paused: false,
-      repeat: false,
-    },
-    {
-      id: 4,
-      require: require('../assets/video/pet4.mp4'),
-      mode: 'contain',
-      paused: false,
-      repeat: true,
-    },
+    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'contain', paused: false, repeat: false},
+    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'contain', paused: false, repeat: false},
+    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'contain', paused: false, repeat: false},
+    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'contain', paused: false, repeat: false},
+    {id: 4, require: require('../assets/video/pet4.mp4'), mode: 'contain', paused: false, repeat: true},
   ];
 
   const RainbowSheet = [
-    {
-      id: 1,
-      require: require('../assets/image/banner/1.jpg'),
-      resizeMode: 'cover',
-    },
-    {
-      id: 2,
-      require: require('../assets/image/banner/2.jpg'),
-      resizeMode: 'cover',
-    },
-    {
-      id: 3,
-      require: require('../assets/image/banner/3.jpg'),
-      resizeMode: 'cover',
-    },
-    {
-      id: 4,
-      require: require('../assets/image/banner/4.jpg'),
-      resizeMode: 'cover',
-    },
-    {
-      id: 5,
-      require: require('../assets/image/banner/5.jpg'),
-      resizeMode: 'cover',
-    },
-    {
-      id: 6,
-      require: require('../assets/image/banner/6.jpg'),
-      resizeMode: 'cover',
-    },
+    {id: 1, require: require('../assets/image/banner/1.jpg'), resizeMode: 'cover'},
+    {id: 2, require: require('../assets/image/banner/2.jpg'), resizeMode: 'cover'},
+    {id: 3, require: require('../assets/image/banner/3.jpg'), resizeMode: 'cover'},
+    {id: 4, require: require('../assets/image/banner/4.jpg'), resizeMode: 'cover'},
+    {id: 5, require: require('../assets/image/banner/5.jpg'), resizeMode: 'cover'},
+    {id: 6, require: require('../assets/image/banner/6.jpg'), resizeMode: 'cover'},
   ];
 
   const RainbowSheetPage = ({item}: {item: any}) => {
@@ -138,6 +84,7 @@ function Home() {
 
   useEffect(() => {
     setSlideTime(10);
+    return;
   }, []);
 
   return (

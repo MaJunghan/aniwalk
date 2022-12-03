@@ -48,31 +48,14 @@ function SignUp({navigation}: SignUpScreenProps) {
             blurOnSubmit={false}
           />
         </View>
+
         <View style={styles.inputWrapper}>
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
-            비밀번호<Text style={styles.special}>*</Text>
+            닉네임<Text style={styles.special}>*</Text>
           </Text>
           <TextInput
             style={styles.textInput}
-            placeholder="비밀번호를 입력해주세요(영문,숫자,특수문자)"
-            placeholderTextColor="#999"
-            onChangeText={onChangePassword}
-            value={password}
-            keyboardType={Platform.OS === 'android' ? 'default' : 'ascii-capable'}
-            textContentType="password"
-            secureTextEntry
-            returnKeyType="send"
-            clearButtonMode="while-editing"
-            ref={passwordRef}
-          />
-        </View>
-        <View style={styles.inputWrapper}>
-          <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
-            이름<Text style={styles.special}>*</Text>
-          </Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="이름을 입력해주세요."
+            placeholder="닉네임을 입력해주세요."
             placeholderTextColor="#999"
             onChangeText={onChangeName}
             value={name}
@@ -109,29 +92,7 @@ function SignUp({navigation}: SignUpScreenProps) {
             </View>
           </View>
         </View>
-        <View style={styles.inputWrapper}>
-          <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
-            휴대폰 번호<Text style={styles.special}>*</Text>
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <TextInput
-              style={[styles.textInput, , {width: wp(55), marginRight: wp(5)}]}
-              placeholder="01012345678"
-              placeholderTextColor="#999"
-              onChangeText={onChangeName}
-              value={name}
-              textContentType="name"
-              returnKeyType="next"
-              clearButtonMode="while-editing"
-              ref={nameRef}
-              onSubmitEditing={() => passwordRef.current?.focus()}
-              blurOnSubmit={false}
-            />
-            <View style={styles.authenticationNumber}>
-              <Text style={styles.numberText}>인증번호 전송</Text>
-            </View>
-          </View>
-        </View>
+
         <View style={styles.buttonZone}>
           <Pressable>
             <Text style={styles.buttonZoneText}>가입완료</Text>
