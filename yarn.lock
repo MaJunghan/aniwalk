@@ -3540,6 +3540,11 @@
   "resolved" "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz"
   "version" "5.0.1"
 
+"eventemitter3@^4.0.7":
+  "integrity" "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
+  "resolved" "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
+  "version" "4.0.7"
+
 "exec-sh@^0.3.2":
   "integrity" "sha512-nQn+hI3yp+oD0huYhKwvYI32+JFeq+XkNcD1GAo3Y/MjxsfVGmrrzrnzjWiNY6f+pUCP440fThsFh5gZrRAU/w=="
   "resolved" "https://registry.npmjs.org/exec-sh/-/exec-sh-0.3.6.tgz"
@@ -6511,6 +6516,13 @@
   dependencies:
     "react" "^16.5.0"
 
+"react-native-background-actions@^2.6.7":
+  "integrity" "sha512-qjHeks9EbLIXeb2xn3AR0eLVlUh/sAboKt0tI3ZN8leEEL1xmZUvpbk0fN6RKRpxpv7ATVHgWjGMK1FNoYh+Ug=="
+  "resolved" "https://registry.npmjs.org/react-native-background-actions/-/react-native-background-actions-2.6.7.tgz"
+  "version" "2.6.7"
+  dependencies:
+    "eventemitter3" "^4.0.7"
+
 "react-native-codegen@^0.70.5":
   "integrity" "sha512-vXqgCWWIWlzsCtwD6hbmwmCleGNJYm+n4xO9VMfzzlF3xt9gjC7/USSMTf/YZlCK/hDwQU412QrNS6A9OH+mag=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.70.5.tgz"
@@ -6594,7 +6606,7 @@
     "prop-types" "^15.7.2"
     "shaka-player" "^2.5.9"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@^0.62.0", "react-native@^0.70.1", "react-native@>=0.35", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.63.0", "react-native@>=0.63.3", "react-native@>0.62.0", "react-native@0.60.5":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@^0.62.0", "react-native@^0.70.1", "react-native@>=0.35", "react-native@>=0.42.0", "react-native@>=0.47.0", "react-native@>=0.48.4", "react-native@>=0.63.0", "react-native@>=0.63.3", "react-native@>0.62.0", "react-native@0.60.5":
   "integrity" "sha512-AUh4NZLFdvyjSiYWCtTROCrC7loxeeZ/TzBnkZwp3kb9XmMu7/kzvWn2c5sEMnzW7X/0JSul8jXexGVdpnCoSA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.1.tgz"
   "version" "0.70.1"

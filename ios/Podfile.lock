@@ -397,6 +397,8 @@ PODS:
   - React-jsinspector (0.70.1)
   - React-logger (0.70.1):
     - glog
+  - react-native-background-actions (2.6.7):
+    - React-Core
   - react-native-flipper (0.176.0):
     - React-Core
   - react-native-geolocation (3.0.4):
@@ -564,6 +566,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-background-actions (from `../node_modules/react-native-background-actions`)
   - react-native-flipper (from `../node_modules/react-native-flipper`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
@@ -682,6 +685,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-background-actions:
+    :path: "../node_modules/react-native-background-actions"
   react-native-flipper:
     :path: "../node_modules/react-native-flipper"
   react-native-geolocation:
@@ -793,6 +798,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 47201924064085223b63ec7e3ee9fd40ad8508e8
   React-jsinspector: 1363be638eccfe1aea1b10dd42e632b0397e5ec8
   React-logger: 7bd569e3857d74ed412ce0a5c51f421ff7d4ca7f
+  react-native-background-actions: 2c251c986f23347f9c1722f05fd296938f60edb1
   react-native-flipper: bbbbb6e3d8b7e6f5fb083885cb9898765fd6d782
   react-native-geolocation: 3ed60c3d7f613c36b777b9fd0bc3453214e1b0d5
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
