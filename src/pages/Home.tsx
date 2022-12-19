@@ -17,14 +17,15 @@ interface SwiperDataType {
 function Home() {
   const [slideTime, setSlideTime] = useState(14); // 초기 슬라이딩 시간 1초
   const [page, setPage] = useState(0);
+  const [videoindex, setVideoIndex] = useState(0);
 
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: SwiperDataType[] = [
-    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'contain', paused: false, repeat: false},
-    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'contain', paused: false, repeat: false},
-    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'contain', paused: false, repeat: false},
-    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'contain', paused: false, repeat: false},
-    {id: 4, require: require('../assets/video/pet4.mp4'), mode: 'contain', paused: false, repeat: true},
+    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'cover', paused: false, repeat: false},
+    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'cover', paused: false, repeat: false},
+    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'cover', paused: false, repeat: false},
+    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'cover', paused: false, repeat: false},
+    {id: 4, require: require('../assets/video/pet4.mp4'), mode: 'cover', paused: false, repeat: true},
   ];
 
   const RainbowSheet = [
@@ -82,6 +83,11 @@ function Home() {
     );
   };
 
+  const onChangeIndexValue = (index: number) => {
+    setVideoIndex(index);
+    console.log(index, 'index는 ?');
+  };
+
   useEffect(() => {
     setSlideTime(10);
     return;
@@ -103,11 +109,7 @@ function Home() {
         </View>
         <View style={styles.video}>
           <Text style={styles.inputText}>Hot Video</Text>
-          <Swiper
-            autoplay
-            showsPagination={false}
-            autoplayTimeout={slideTime}
-            onIndexChanged={() => console.log('출력되냐?')}>
+          <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime} onIndexChanged={onChangeIndexValue}>
             {swiperData.map((item: any) => {
               return (
                 <View
@@ -123,6 +125,7 @@ function Home() {
                     resizeMode={item.mode}
                     repeat={item.repeat}
                     style={styles.partScreen}
+                    muted={true}
                   />
                 </View>
               );
@@ -255,8 +258,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   partScreen: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: wp(40),
+    height: hp(30),
   },
   comment: {
     marginTop: hp(2),
