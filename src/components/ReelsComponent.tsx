@@ -7,7 +7,7 @@ import SingleReel from './SingleReel';
 //   id: number;
 //   video: NodeRequire;
 //   title: string;
-//   description: string;
+//   nickName: string;
 //   likes: number;
 //   isLike: boolean;
 // }
@@ -20,7 +20,7 @@ function ReelsCompoennt() {
       id: 0,
       video: require('../assets/video/tv.mp4'),
       title: 'Reels1',
-      description: '설명1',
+      nickName: 'nickName1',
       likes: 245,
       isLike: false,
     },
@@ -28,7 +28,7 @@ function ReelsCompoennt() {
       id: 1,
       video: require('../assets/video/bird.mp4'),
       title: 'Reels1',
-      description: '설명1',
+      nickName: 'nickName2',
       likes: 245,
       isLike: false,
     },
@@ -36,7 +36,7 @@ function ReelsCompoennt() {
       id: 2,
       video: require('../assets/video/pet2.mp4'),
       title: 'Reels1',
-      description: '설명1',
+      nickName: 'nickName3',
       likes: 245,
       isLike: false,
     },
@@ -44,7 +44,7 @@ function ReelsCompoennt() {
       id: 3,
       video: require('../assets/video/pet3.mp4'),
       title: 'Reels1',
-      description: '설명1',
+      nickName: 'nickName4',
       likes: 245,
       isLike: false,
     },
@@ -52,7 +52,7 @@ function ReelsCompoennt() {
       id: 4,
       video: require('../assets/video/pet4.mp4'),
       title: 'Reels1',
-      description: '설명1',
+      nickName: 'nickName5',
       likes: 245,
       isLike: false,
     },

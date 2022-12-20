@@ -17,7 +17,7 @@ interface SwiperDataType {
 function Home() {
   const [slideTime, setSlideTime] = useState(14); // 초기 슬라이딩 시간 1초
   const [page, setPage] = useState(0);
-  const [videoindex, setVideoIndex] = useState(0);
+  const [videoIndex, setVideoIndex] = useState(0);
 
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: SwiperDataType[] = [
@@ -37,12 +37,12 @@ function Home() {
     {id: 6, require: require('../assets/image/banner/6.jpg'), resizeMode: 'cover'},
   ];
 
-  const RainbowSheetPage = ({item}: {item: any}) => {
+  const swiperDataList = ({item}: {item: any}) => {
     return (
       <View
         style={{
-          width: wp(90),
-          height: hp(25),
+          width: wp(40),
+          height: hp(30),
           borderRadius: 10,
           marginBottom: hp(10),
           overflow: 'hidden',
@@ -60,7 +60,30 @@ function Home() {
     );
   };
 
-  const RainCoupleList = ({item}: {item: any}) => {
+  const rainbowSheetPage = ({item}: {item: any}) => {
+    return (
+      <View
+        style={{
+          width: wp(90),
+          height: hp(30),
+          marginBottom: hp(5),
+          borderRadius: 10,
+          overflow: 'hidden',
+        }}>
+        <Image
+          key={item.id}
+          source={item.require}
+          style={{
+            resizeMode: item.resizeMode,
+            width: Dimensions.get('window').width,
+            height: Dimensions.get('window').height,
+          }}
+        />
+      </View>
+    );
+  };
+
+  const rainCoupleList = ({item}: {item: any}) => {
     return (
       <View
         style={{
@@ -83,11 +106,6 @@ function Home() {
     );
   };
 
-  const onChangeIndexValue = (index: number) => {
-    setVideoIndex(index);
-    console.log(index, 'index는 ?');
-  };
-
   useEffect(() => {
     setSlideTime(10);
     return;
@@ -104,85 +122,60 @@ function Home() {
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
-            RenderItem={RainbowSheetPage}
+            RenderItem={rainbowSheetPage}
           />
         </View>
-        <View style={styles.video}>
-          <Text style={styles.inputText}>Hot Video</Text>
-          <Swiper autoplay showsPagination={false} autoplayTimeout={slideTime} onIndexChanged={onChangeIndexValue}>
-            {swiperData.map((item: any) => {
-              return (
-                <View
-                  key={item.id}
-                  style={{
-                    width: wp(100),
-                    height: hp(60),
-                    marginTop: hp(-40),
-                  }}>
-                  <Video
-                    source={item.require}
-                    paused={item.paused}
-                    resizeMode={item.mode}
-                    repeat={item.repeat}
-                    style={styles.partScreen}
-                    muted={true}
-                  />
-                </View>
-              );
-            })}
-          </Swiper>
-          <View style={Platform.OS === 'ios' ? styles.videoIconBoxIos : styles.videoIconBoxAnd}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Image
-                source={require('../assets/image/icon/love.png')}
-                resizeMode={'contain'}
-                style={styles.videoIcon}
-              />
-              <Image
-                source={require('../assets/image/icon/speech.png')}
-                resizeMode={'contain'}
-                style={[styles.videoIcon, {marginLeft: wp(4)}]}
-              />
-              <Image
-                source={require('../assets/image/icon/send.png')}
-                resizeMode={'contain'}
-                style={[styles.videoIcon, , {marginLeft: wp(4)}]}
-              />
-            </View>
+        <View
+          style={{
+            width: wp(100),
+            height: hp(1),
+            backgroundColor: '#efeff2',
+            marginBottom: hp(1),
+          }}
+        />
+        <View style={{height: hp(45)}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(5), marginBottom: hp(1)}}>
+            <Image
+              resizeMode={'contain'}
+              source={require('../assets/image/icon/video.png')}
+              style={{width: wp(7), height: hp(7)}}
+            />
             <Text
               style={{
-                fontSize: wp(3),
-                fontFamily: 'NotoSansKR-Light',
-                color: '#999',
+                marginLeft: wp(3),
+                fontFamily: 'NotoSansKR-Bold',
+                color: 'black',
+                fontSize: hp(2.5),
               }}>
-              좋아요 101개
+              Shorts
             </Text>
           </View>
-          <View style={styles.comment}>
-            <View style={styles.avatar}>
-              <Image
-                source={require('../assets/image/icon/avatar.webp')}
-                resizeMode={'contain'}
-                style={Platform.OS === 'ios' ? [styles.videoIcon, {marginLeft: wp(5)}] : styles.avatarAnd}
-              />
-              <TextInput placeholder="댓글 달기..." style={{marginLeft: wp(5)}} />
-            </View>
-          </View>
-        </View>
-
-        <View style={{marginTop: hp(-1)}}>
-          <Text style={styles.inputText}>이달의 Best Couple!</Text>
           <Carousel
             page={page}
             setPage={setPage}
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
-            RenderItem={RainCoupleList}
+            RenderItem={swiperDataList}
+          />
+        </View>
+        <View
+          style={{
+            width: wp(100),
+            height: hp(1),
+            backgroundColor: '#efeff2',
+          }}
+        />
+
+        <View style={{marginTop: hp(-1)}}>
+          <Text style={styles.inputText}>이달의 Best Couple!</Text>
+          <Carousel
+            page={videoIndex}
+            setPage={setVideoIndex}
+            gap={wp(3)}
+            data={RainbowSheet}
+            pageWidth={wp(90)}
+            RenderItem={rainCoupleList}
           />
         </View>
         <View style={{marginTop: hp(-1)}}>
@@ -193,7 +186,7 @@ function Home() {
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
-            RenderItem={RainCoupleList}
+            RenderItem={rainCoupleList}
           />
         </View>
         <View style={{marginTop: hp(-1)}}>
@@ -204,7 +197,7 @@ function Home() {
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
-            RenderItem={RainCoupleList}
+            RenderItem={rainCoupleList}
           />
         </View>
         <View style={{marginTop: hp(-1)}}>
@@ -215,7 +208,7 @@ function Home() {
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}
-            RenderItem={RainCoupleList}
+            RenderItem={rainCoupleList}
           />
         </View>
         <View style={{marginTop: hp(10)}} />
