@@ -61,8 +61,8 @@ function SingleReel({index, currentIndex, item}: any): any {
             source={require('../assets/image/icon/avatar.webp')}
             resizeMode={'contain'}
             style={{
-              width: wp(7),
-              height: hp(4),
+              width: wp(5),
+              height: hp(3),
               borderRadius: 100,
               overflow: 'hidden',
               backgroundColor: 'white',
