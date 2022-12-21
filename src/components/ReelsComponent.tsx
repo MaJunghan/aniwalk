@@ -19,7 +19,7 @@ function ReelsCompoennt() {
     {
       id: 0,
       video: require('../assets/video/tv.mp4'),
-      title: 'Reels1',
+      title: 'Test1',
       nickName: 'nickName1',
       likes: 245,
       isLike: false,
@@ -27,7 +27,7 @@ function ReelsCompoennt() {
     {
       id: 1,
       video: require('../assets/video/bird.mp4'),
-      title: 'Reels1',
+      title: 'Test2',
       nickName: 'nickName2',
       likes: 245,
       isLike: false,
@@ -35,7 +35,7 @@ function ReelsCompoennt() {
     {
       id: 2,
       video: require('../assets/video/pet2.mp4'),
-      title: 'Reels1',
+      title: 'Test3',
       nickName: 'nickName3',
       likes: 245,
       isLike: false,
@@ -43,7 +43,7 @@ function ReelsCompoennt() {
     {
       id: 3,
       video: require('../assets/video/pet3.mp4'),
-      title: 'Reels1',
+      title: 'Test4',
       nickName: 'nickName4',
       likes: 245,
       isLike: false,
