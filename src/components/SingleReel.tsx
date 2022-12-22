@@ -16,7 +16,7 @@ interface IconArray {
 function SingleReel({index, currentIndex, item}: any): any {
   const videoRef = useRef(null);
   const [mute, setMute] = useState(false);
-  const [hear, setHear] = useState(false);
+  const [heart, setHeart] = useState(item.isLike);
 
   const toggleMute = () => {
     setMute(prev => !prev);
@@ -32,7 +32,7 @@ function SingleReel({index, currentIndex, item}: any): any {
           resizeMode="cover"
           paused={false}
           source={item.video}
-          muted={mute}
+          muted={true}
           style={{width: '100%', height: '100%', position: 'absolute'}}
         />
       </TouchableOpacity>
@@ -89,8 +89,8 @@ function SingleReel({index, currentIndex, item}: any): any {
           paddingVertical: hp(15),
           marginRight: wp(2),
         }}>
-        <TouchableOpacity>
-          <AntDesign name="hearto" style={{fontSize: hp(4), color: 'white'}} />
+        <TouchableOpacity onPress={() => setHeart((prev: boolean) => !prev)}>
+          <AntDesign name={heart ? 'heart' : 'hearto'} style={{fontSize: hp(4), color: heart ? 'red' : 'white'}} />
           <Text style={{fontSize: hp(2), color: 'white', marginLeft: wp(0.5)}}>{item.likes}</Text>
         </TouchableOpacity>
         <TouchableOpacity>

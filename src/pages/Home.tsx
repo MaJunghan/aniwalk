@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View, Dimensions, ScrollView, Platform, TextInput} from 'react-native';
-import Swiper from 'react-native-swiper';
-import Video from 'react-native-video';
+import {Image, SafeAreaView, StyleSheet, Text, View, Dimensions, ScrollView, Pressable} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
@@ -15,7 +13,6 @@ interface SwiperDataType {
 }
 
 function Home() {
-  const [slideTime, setSlideTime] = useState(14); // 초기 슬라이딩 시간 1초
   const [page, setPage] = useState(0);
   const [videoIndex, setVideoIndex] = useState(0);
 
@@ -105,11 +102,6 @@ function Home() {
       </View>
     );
   };
-
-  useEffect(() => {
-    setSlideTime(10);
-    return;
-  }, []);
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
