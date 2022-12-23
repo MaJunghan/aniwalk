@@ -1,8 +1,14 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState} from 'react';
 import {Image, SafeAreaView, StyleSheet, Text, View, Dimensions, ScrollView, Pressable} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Carousel from '../components/Carousel';
 import Header from '../components/Header';
+import {useDispatch} from 'react-redux';
+import Reels from '../components/Reels';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
+import {useAppDispatch} from '../store';
+import indexSlice from '../slices';
 
 interface SwiperDataType {
   id: number;
@@ -13,47 +19,54 @@ interface SwiperDataType {
 }
 
 function Home() {
+  const dispatch = useDispatch();
   const [page, setPage] = useState(0);
-  const [videoIndex, setVideoIndex] = useState(0);
+  const videoState = useSelector((state: RootState) => state.index.videoState);
 
   // paused : 일시중지여부 , repeat : 반복여부
   const swiperData: SwiperDataType[] = [
-    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'cover', paused: false, repeat: false},
-    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'cover', paused: false, repeat: false},
-    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'cover', paused: false, repeat: false},
-    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'cover', paused: false, repeat: false},
+    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'cover', paused: false, repeat: true},
+    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'cover', paused: false, repeat: true},
+    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'cover', paused: false, repeat: true},
+    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'cover', paused: false, repeat: true},
     {id: 4, require: require('../assets/video/pet4.mp4'), mode: 'cover', paused: false, repeat: true},
   ];
 
   const RainbowSheet = [
-    {id: 1, require: require('../assets/image/banner/1.jpg'), resizeMode: 'cover'},
-    {id: 2, require: require('../assets/image/banner/2.jpg'), resizeMode: 'cover'},
-    {id: 3, require: require('../assets/image/banner/3.jpg'), resizeMode: 'cover'},
-    {id: 4, require: require('../assets/image/banner/4.jpg'), resizeMode: 'cover'},
-    {id: 5, require: require('../assets/image/banner/5.jpg'), resizeMode: 'cover'},
-    {id: 6, require: require('../assets/image/banner/6.jpg'), resizeMode: 'cover'},
+    {id: 0, require: require('../assets/image/banner/1.jpg'), resizeMode: 'cover'},
+    {id: 1, require: require('../assets/image/banner/2.jpg'), resizeMode: 'cover'},
+    {id: 2, require: require('../assets/image/banner/3.jpg'), resizeMode: 'cover'},
+    {id: 3, require: require('../assets/image/banner/4.jpg'), resizeMode: 'cover'},
+    {id: 4, require: require('../assets/image/banner/5.jpg'), resizeMode: 'cover'},
+    {id: 5, require: require('../assets/image/banner/6.jpg'), resizeMode: 'cover'},
   ];
+
+  const onChangeVideoState = () => {
+    dispatch(indexSlice.actions.onChangeVideoState(!videoState));
+  };
 
   const swiperDataList = ({item}: {item: any}) => {
     return (
-      <View
-        style={{
-          width: wp(40),
-          height: hp(30),
-          borderRadius: 10,
-          marginBottom: hp(10),
-          overflow: 'hidden',
-        }}>
-        <Image
-          key={item.id}
-          source={item.require}
+      <Pressable onPress={onChangeVideoState}>
+        <View
           style={{
-            resizeMode: item.resizeMode,
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-          }}
-        />
-      </View>
+            width: wp(40),
+            height: hp(30),
+            borderRadius: 10,
+            marginBottom: hp(10),
+            overflow: 'hidden',
+          }}>
+          <Image
+            key={item.id}
+            source={item.require}
+            style={{
+              resizeMode: item.resizeMode,
+              width: Dimensions.get('window').width,
+              height: Dimensions.get('window').height,
+            }}
+          />
+        </View>
+      </Pressable>
     );
   };
 
@@ -105,7 +118,7 @@ function Home() {
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#ffffff'}}>
-      <ScrollView>
+      <ScrollView scrollEnabled={true}>
         <Header />
         <View>
           <Carousel
@@ -151,6 +164,7 @@ function Home() {
             RenderItem={swiperDataList}
           />
         </View>
+        {videoState ? <Reels /> : null}
         <View
           style={{
             width: wp(100),
@@ -162,8 +176,8 @@ function Home() {
         <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best Couple!</Text>
           <Carousel
-            page={videoIndex}
-            setPage={setVideoIndex}
+            page={page}
+            setPage={setPage}
             gap={wp(3)}
             data={RainbowSheet}
             pageWidth={wp(90)}

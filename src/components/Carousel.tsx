@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, FlatList, View} from 'react-native';
+import {Dimensions, FlatList, Pressable, View} from 'react-native';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 
 const {width} = Dimensions.get('window');
@@ -13,19 +13,9 @@ type CarouselProps = {
   contentOffset?: {x: number; y: number};
 };
 
-const Carousel = ({
-  gap,
-  RenderItem,
-  pageWidth,
-  data,
-  page,
-  setPage,
-  contentOffset,
-}: CarouselProps) => {
+const Carousel = ({gap, RenderItem, pageWidth, data, page, setPage, contentOffset}: CarouselProps) => {
   const onScroll = (e: any) => {
-    const newPage = Math.round(
-      e.nativeEvent.contentOffset.x / (pageWidth + gap),
-    );
+    const newPage = Math.round(e.nativeEvent.contentOffset.x / (pageWidth + gap));
     setPage(newPage);
   };
 
@@ -44,7 +34,7 @@ const Carousel = ({
         horizontal
         keyExtractor={item => String(item.id)}
         data={data}
-        renderItem={({item}) => (
+        renderItem={({item}: any) => (
           <View
             style={{
               marginHorizontal: gap / 2,

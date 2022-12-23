@@ -3,19 +3,19 @@ import {Text, View} from 'react-native';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import SingleReel from './SingleReel';
 
-// interface SwiperDataType {
-//   id: number;
-//   video: NodeRequire;
-//   title: string;
-//   nickName: string;
-//   likes: number;
-//   isLike: boolean;
-// }
+interface SwiperDataType {
+  id: number;
+  video: NodeRequire;
+  title: string;
+  nickName: string;
+  likes: number;
+  isLike: boolean;
+}
 
 function ReelsCompoennt() {
   const [reelIndex, setReelIndex] = useState(0);
 
-  const swiperData: any[] = [
+  const swiperData: SwiperDataType[] = [
     {
       id: 0,
       video: require('../assets/video/tv.mp4'),
@@ -66,8 +66,8 @@ function ReelsCompoennt() {
     <View>
       <SwiperFlatList
         data={swiperData}
-        vertical={true}
         renderAll={false}
+        vertical={true}
         onChangeIndex={onChangeReelIndex}
         renderItem={({item, index}: any) => {
           return <SingleReel item={item} index={index} currentIndex={reelIndex} />;

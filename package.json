@@ -21,6 +21,7 @@
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "@reduxjs/toolkit": "^1.9.1",
     "link": "^1.5.1",
     "react": "18.1.0",
     "react-native": "^0.70.1",
@@ -37,6 +38,7 @@
     "react-native-swiper-flatlist": "^3.0.18",
     "react-native-vector-icons": "^9.2.0",
     "react-native-video": "^5.2.1",
+    "react-redux": "^8.0.5",
     "redux-flipper": "^2.0.2",
     "rn-async-storage-flipper": "^0.0.10"
   },

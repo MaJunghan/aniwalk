@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, Text, Pressable, View} from 'react-native';
 import Video from 'react-native-video';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,6 +15,7 @@ interface IconArray {
 
 function SingleReel({index, currentIndex, item}: any): any {
   const videoRef = useRef(null);
+  console.log(currentIndex);
   const [mute, setMute] = useState(false);
   const [heart, setHeart] = useState(item.isLike);
 
@@ -25,7 +26,7 @@ function SingleReel({index, currentIndex, item}: any): any {
   return (
     <View
       style={{width: Dimensions.get('window').width, height: Dimensions.get('window').height, position: 'relative'}}>
-      <TouchableOpacity style={{width: '100%', height: '100%', position: 'absolute'}} onPress={toggleMute}>
+      <Pressable style={{width: '100%', height: '100%', position: 'absolute'}} onPress={toggleMute}>
         <Video
           ref={videoRef}
           repeat={true}
@@ -35,7 +36,7 @@ function SingleReel({index, currentIndex, item}: any): any {
           muted={true}
           style={{width: '100%', height: '100%', position: 'absolute'}}
         />
-      </TouchableOpacity>
+      </Pressable>
       <Ionic
         name="volume-mute"
         style={{
@@ -89,16 +90,16 @@ function SingleReel({index, currentIndex, item}: any): any {
           paddingVertical: hp(15),
           marginRight: wp(2),
         }}>
-        <TouchableOpacity onPress={() => setHeart((prev: boolean) => !prev)}>
+        <Pressable onPress={() => setHeart((prev: boolean) => !prev)}>
           <AntDesign name={heart ? 'heart' : 'hearto'} style={{fontSize: hp(4), color: heart ? 'red' : 'white'}} />
           <Text style={{fontSize: hp(2), color: 'white', marginLeft: wp(0.5)}}>{item.likes}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </Pressable>
+        <Pressable>
           <Ionic name="ios-chatbubble-outline" style={{fontSize: hp(4), color: 'white'}} />
-        </TouchableOpacity>
-        <TouchableOpacity>
+        </Pressable>
+        <Pressable>
           <Ionic name="ios-paper-plane-outline" style={{fontSize: hp(4), color: 'white'}} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
