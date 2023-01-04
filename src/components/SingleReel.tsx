@@ -51,19 +51,17 @@ function SingleReel({index, currentIndex, item}: any): any {
           overflow: 'hidden',
         }}
       />
-      <View style={{position: 'absolute', top: hp(80), paddingHorizontal: wp(5), marginTop: hp(-2)}}>
+      <View style={{position: 'absolute', top: hp(87), paddingHorizontal: wp(5), marginTop: hp(-4)}}>
         <View>
-          <Text style={{fontSize: hp(2), color: 'white', fontFamily: 'NotoSansKR-Bold'}}>
-            등장과 동시에 충격 그자체였던 벌스모음
-          </Text>
+          <Text style={{fontSize: hp(2), color: 'white', fontFamily: 'NotoSansKR-Bold'}}>{item.title}</Text>
         </View>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={require('../assets/image/icon/avatar.webp')}
             resizeMode={'contain'}
             style={{
-              width: wp(5),
-              height: hp(3),
+              width: wp(9),
+              height: hp(4.5),
               borderRadius: 100,
               overflow: 'hidden',
               backgroundColor: 'white',
@@ -76,7 +74,7 @@ function SingleReel({index, currentIndex, item}: any): any {
               color: 'white',
               fontFamily: 'NotoSansKR-Light',
             }}>
-            {item.title}
+            {item.nickName}
           </Text>
         </View>
       </View>

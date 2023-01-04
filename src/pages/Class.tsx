@@ -1,12 +1,10 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Reels from '../components/Reels';
+import {SafeAreaView, Text} from 'react-native';
 
 function Class() {
   return (
     <SafeAreaView>
-      <Reels />
+      <Text>dd</Text>
     </SafeAreaView>
   );
 }

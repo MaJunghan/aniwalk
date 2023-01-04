@@ -20,6 +20,9 @@ interface SwiperDataType {
 
 function Home() {
   const dispatch = useDispatch();
+  const [bannerPage, setBannerPage] = useState(0);
+  console.log(bannerPage, 'wqewqesert');
+
   const [page, setPage] = useState(0);
   const videoState = useSelector((state: RootState) => state.index.videoState);
 
@@ -33,25 +36,70 @@ function Home() {
   ];
 
   const RainbowSheet = [
-    {id: 0, require: require('../assets/image/banner/1.jpg'), resizeMode: 'cover'},
-    {id: 1, require: require('../assets/image/banner/2.jpg'), resizeMode: 'cover'},
-    {id: 2, require: require('../assets/image/banner/3.jpg'), resizeMode: 'cover'},
-    {id: 3, require: require('../assets/image/banner/4.jpg'), resizeMode: 'cover'},
-    {id: 4, require: require('../assets/image/banner/5.jpg'), resizeMode: 'cover'},
-    {id: 5, require: require('../assets/image/banner/6.jpg'), resizeMode: 'cover'},
+    {
+      id: 0,
+      require: require('../assets/image/banner/banner1.png'),
+      resizeMode: 'cover',
+      video: require('../assets/video/tv.mp4'),
+      title: '등장과 동시에 충격 그자체였던 벌스모음',
+      nickName: 'nickName1',
+      likes: 245,
+      isLike: false,
+    },
+    {
+      id: 1,
+      require: require('../assets/image/banner/banner2.png'),
+      resizeMode: 'cover',
+      video: require('../assets/video/bird.mp4'),
+      title: 'Test2',
+      nickName: 'nickName2',
+      likes: 245,
+      isLike: false,
+    },
+    {
+      id: 2,
+      require: require('../assets/image/banner/banner3.png'),
+      resizeMode: 'cover',
+      video: require('../assets/video/pet2.mp4'),
+      title: 'Test3',
+      nickName: 'nickName3',
+      likes: 245,
+      isLike: false,
+    },
+    {
+      id: 3,
+      require: require('../assets/image/banner/banner4.jpg'),
+      resizeMode: 'cover',
+      video: require('../assets/video/pet3.mp4'),
+      title: 'Test4',
+      nickName: 'nickName4',
+      likes: 245,
+      isLike: false,
+    },
+    {
+      id: 4,
+      require: require('../assets/image/banner/banner5.jpg'),
+      resizeMode: 'cover',
+      video: require('../assets/video/pet4.mp4'),
+      title: 'Reels1',
+      nickName: 'nickName5',
+      likes: 245,
+      isLike: false,
+    },
   ];
 
-  const onChangeVideoState = () => {
+  const onChangeVideoState = (item: any) => {
     dispatch(indexSlice.actions.onChangeVideoState(!videoState));
+    console.log(item, '여기에 나중에 영상추가 로직만들어야함.');
   };
 
   const swiperDataList = ({item}: {item: any}) => {
     return (
-      <Pressable onPress={onChangeVideoState}>
+      <Pressable onPress={() => onChangeVideoState(item)}>
         <View
           style={{
-            width: wp(40),
-            height: hp(30),
+            width: wp(85),
+            height: hp(55),
             borderRadius: 10,
             marginBottom: hp(10),
             overflow: 'hidden',
@@ -60,9 +108,9 @@ function Home() {
             key={item.id}
             source={item.require}
             style={{
-              resizeMode: item.resizeMode,
+              resizeMode: 'stretch',
               width: Dimensions.get('window').width,
-              height: Dimensions.get('window').height,
+              height: hp(55),
             }}
           />
         </View>
@@ -74,21 +122,40 @@ function Home() {
     return (
       <View
         style={{
-          width: wp(90),
-          height: hp(30),
+          width: wp(100),
+          height: hp(20),
           marginBottom: hp(5),
-          borderRadius: 10,
           overflow: 'hidden',
         }}>
-        <Image
-          key={item.id}
-          source={item.require}
-          style={{
-            resizeMode: item.resizeMode,
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').height,
-          }}
-        />
+        <View style={{position: 'relative', flexDirection: 'row'}}>
+          <Image
+            key={item.id}
+            source={item.require}
+            style={{
+              resizeMode: 'stretch',
+              position: 'absolute',
+              width: wp(100),
+              height: hp(25),
+            }}
+          />
+          <View
+            style={{
+              position: 'absolute',
+              backgroundColor: 'rgba(153, 153, 153, 0.5)',
+              width: wp(10),
+              height: hp(4),
+              top: hp(13),
+              right: wp(1),
+              borderRadius: wp(5),
+              overflow: 'hidden',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{color: 'white', fontSize: hp(1.5)}}>
+              {bannerPage + 1} / {RainbowSheet.length}
+            </Text>
+          </View>
+        </View>
       </View>
     );
   };
@@ -122,39 +189,15 @@ function Home() {
         <Header />
         <View>
           <Carousel
-            page={page}
-            setPage={setPage}
-            gap={wp(3)}
+            page={bannerPage}
+            setPage={setBannerPage}
+            gap={wp(0)}
             data={RainbowSheet}
-            pageWidth={wp(90)}
+            pageWidth={wp(100)}
             RenderItem={rainbowSheetPage}
           />
         </View>
-        <View
-          style={{
-            width: wp(100),
-            height: hp(1),
-            backgroundColor: '#efeff2',
-            marginBottom: hp(1),
-          }}
-        />
-        <View style={{height: hp(45)}}>
-          <View style={{flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(5), marginBottom: hp(1)}}>
-            <Image
-              resizeMode={'contain'}
-              source={require('../assets/image/icon/video.png')}
-              style={{width: wp(7), height: hp(7)}}
-            />
-            <Text
-              style={{
-                marginLeft: wp(3),
-                fontFamily: 'NotoSansKR-Bold',
-                color: 'black',
-                fontSize: hp(2.5),
-              }}>
-              Shorts
-            </Text>
-          </View>
+        <View style={{height: hp(60)}}>
           <Carousel
             page={page}
             setPage={setPage}
@@ -165,14 +208,6 @@ function Home() {
           />
         </View>
         {videoState ? <Reels /> : null}
-        <View
-          style={{
-            width: wp(100),
-            height: hp(1),
-            backgroundColor: '#efeff2',
-          }}
-        />
-
         <View style={{marginTop: hp(-1)}}>
           <Text style={styles.inputText}>이달의 Best Couple!</Text>
           <Carousel
