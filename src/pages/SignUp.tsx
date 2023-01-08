@@ -1,31 +1,45 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {ActivityIndicator, Alert, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Image, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DismissKeyboardView from '../components/DismissKeyboardView';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../../AppInner';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 function SignUp({navigation}: SignUpScreenProps) {
-  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  const [genderList, setGenderList] = useState([
+    {id: 0, title: '남성', isActive: false},
+    {id: 1, title: '여성', isActive: false},
+    {id: 2, title: '선택하지 않음', isActive: false},
+  ]);
   const emailRef = useRef<TextInput | null>(null);
   const nameRef = useRef<TextInput | null>(null);
   const passwordRef = useRef<TextInput | null>(null);
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
+    console.log(text);
   }, []);
   const onChangeName = useCallback((text: string) => {
     setName(text.trim());
+    console.log(text);
   }, []);
   const onChangePassword = useCallback((text: string) => {
     setPassword(text.trim());
+    console.log(text);
   }, []);
 
+  const onActiveGender = (index: number) => {
+    const data = genderList.map((item, idx) =>
+      idx === index ? {...item, isActive: true} : {...item, isActive: false},
+    );
+    setGenderList(data);
+  };
   const canGoNext = email && name && password;
   return (
     <DismissKeyboardView>
@@ -53,43 +67,44 @@ function SignUp({navigation}: SignUpScreenProps) {
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
             닉네임<Text style={styles.special}>*</Text>
           </Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="닉네임을 입력해주세요."
-            placeholderTextColor="#999"
-            onChangeText={onChangeName}
-            value={name}
-            textContentType="name"
-            returnKeyType="next"
-            clearButtonMode="while-editing"
-            ref={nameRef}
-            onSubmitEditing={() => passwordRef.current?.focus()}
-            blurOnSubmit={false}
-          />
+          <View style={{flexDirection: 'row', alignItems: 'center', position: 'relative'}}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="닉네임을 입력해주세요."
+              placeholderTextColor="#999"
+              onChangeText={onChangeName}
+              value={name}
+              textContentType="name"
+              returnKeyType="next"
+              clearButtonMode="while-editing"
+              ref={nameRef}
+              onSubmitEditing={() => passwordRef.current?.focus()}
+              blurOnSubmit={false}
+            />
+            <View style={{position: 'absolute', marginLeft: wp(80)}}>
+              <Pressable onPress={() => console.log('새로고침')}>
+                <Image
+                  source={require('../assets/image/icon/refresh.png')}
+                  style={{width: wp(5), height: hp(5), resizeMode: 'contain'}}
+                />
+              </Pressable>
+            </View>
+          </View>
         </View>
         <View style={styles.inputWrapper}>
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
             성별<Text style={styles.select}> (선택)</Text>
           </Text>
           <View style={styles.gender}>
-            <View style={[styles.genderView, {borderColor: 'blue'}]}>
-              <Text
-                style={[
-                  styles.genderText,
-                  {
-                    color: 'blue',
-                    fontFamily: 'NotoSansKR-Bold',
-                  },
-                ]}>
-                남성
-              </Text>
-            </View>
-            <View style={styles.genderView}>
-              <Text style={styles.genderText}>여성</Text>
-            </View>
-            <View style={styles.genderView}>
-              <Text style={styles.genderText}>선택하지 않음</Text>
-            </View>
+            {genderList.map((item, index) => {
+              return (
+                <Pressable key={item.id} onPress={() => onActiveGender(index)}>
+                  <View style={item.isActive ? styles.genderViewActive : styles.genderView}>
+                    <Text style={item.isActive ? styles.genderTextActive : styles.genderText}>{item.title}</Text>
+                  </View>
+                </Pressable>
+              );
+            })}
           </View>
         </View>
 
@@ -109,6 +124,7 @@ const styles = StyleSheet.create({
     marginTop: hp(1),
   },
   textInput: {
+    width: wp(90),
     height: hp(7),
     alignItems: 'center',
     paddingLeft: wp(3),
@@ -162,6 +178,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  genderViewActive: {
+    width: wp(29),
+    height: hp(7),
+    borderRadius: wp(1),
+    borderWidth: wp(0.2),
+    borderColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   genderView: {
     width: wp(29),
     height: hp(7),
@@ -170,6 +195,11 @@ const styles = StyleSheet.create({
     borderColor: '#666',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  genderTextActive: {
+    color: 'blue',
+    fontSize: hp(2),
+    fontFamily: 'NotoSansKR-Bold',
   },
   genderText: {
     color: '#666',
