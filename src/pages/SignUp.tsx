@@ -4,13 +4,15 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {RootStackParamList} from '../../AppInner';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import Timer from '../components/Timer';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 function SignUp({navigation}: SignUpScreenProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+  const [authNumber, setAuthNumber] = useState('');
+  const [authCheck, setAuthCheck] = useState(false);
 
   const [genderList, setGenderList] = useState([
     {id: 0, title: '남성', isActive: false},
@@ -18,8 +20,8 @@ function SignUp({navigation}: SignUpScreenProps) {
     {id: 2, title: '선택하지 않음', isActive: false},
   ]);
   const emailRef = useRef<TextInput | null>(null);
+  const emailAuthRef = useRef<TextInput | null>(null);
   const nameRef = useRef<TextInput | null>(null);
-  const passwordRef = useRef<TextInput | null>(null);
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
@@ -29,18 +31,17 @@ function SignUp({navigation}: SignUpScreenProps) {
     setName(text.trim());
     console.log(text);
   }, []);
-  const onChangePassword = useCallback((text: string) => {
-    setPassword(text.trim());
+  const onChangeAuthNumber = useCallback((text: string) => {
+    setAuthNumber(text.trim());
     console.log(text);
   }, []);
-
   const onActiveGender = (index: number) => {
     const data = genderList.map((item, idx) =>
       idx === index ? {...item, isActive: true} : {...item, isActive: false},
     );
     setGenderList(data);
   };
-  const canGoNext = email && name && password;
+
   return (
     <DismissKeyboardView>
       <View style={styles.signUp}>
@@ -48,20 +49,59 @@ function SignUp({navigation}: SignUpScreenProps) {
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
             아이디(이메일)<Text style={styles.special}>*</Text>
           </Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={onChangeEmail}
-            placeholder="aniwalk@aniwalkmail.com"
-            placeholderTextColor="#999"
-            textContentType="emailAddress"
-            value={email}
-            returnKeyType="next"
-            clearButtonMode="while-editing"
-            ref={emailRef}
-            onSubmitEditing={() => nameRef.current?.focus()}
-            blurOnSubmit={false}
-          />
+          <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+            <TextInput
+              style={styles.emailTextInput}
+              onChangeText={onChangeEmail}
+              placeholder="aniwalk@aniwalkmail.com"
+              placeholderTextColor="#999"
+              textContentType="emailAddress"
+              value={email}
+              returnKeyType="next"
+              clearButtonMode="while-editing"
+              ref={emailRef}
+              onSubmitEditing={() => emailAuthRef.current?.focus()}
+              blurOnSubmit={false}
+            />
+            <Pressable onPress={() => setAuthCheck(true)}>
+              <View
+                style={{
+                  backgroundColor: 'blue',
+                  width: wp(25),
+                  height: hp(7),
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: wp(1),
+                  marginLeft: wp(5),
+                }}>
+                <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(2), color: 'white'}}>이메일 인증</Text>
+              </View>
+            </Pressable>
+          </View>
         </View>
+        {authCheck && (
+          <View style={styles.inputWrapper}>
+            <View style={{flexDirection: 'row', alignItems: 'center', position: 'relative', marginTop: hp(2)}}>
+              <TextInput
+                style={styles.textInput}
+                placeholder="인증번호 입력"
+                placeholderTextColor="#999"
+                onChangeText={onChangeName}
+                value={authNumber}
+                textContentType="name"
+                returnKeyType="next"
+                clearButtonMode="while-editing"
+                ref={emailAuthRef}
+                onSubmitEditing={() => nameRef.current?.focus()}
+                blurOnSubmit={false}
+              />
+              <View style={{position: 'absolute', marginLeft: wp(80)}}>
+                <Timer />
+              </View>
+            </View>
+          </View>
+        )}
 
         <View style={styles.inputWrapper}>
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
@@ -78,7 +118,6 @@ function SignUp({navigation}: SignUpScreenProps) {
               returnKeyType="next"
               clearButtonMode="while-editing"
               ref={nameRef}
-              onSubmitEditing={() => passwordRef.current?.focus()}
               blurOnSubmit={false}
             />
             <View style={{position: 'absolute', marginLeft: wp(80)}}>
@@ -134,7 +173,17 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
-
+  emailTextInput: {
+    width: wp(60),
+    height: hp(7),
+    alignItems: 'center',
+    paddingLeft: wp(3),
+    borderWidth: 1,
+    borderColor: '#666',
+    borderRadius: wp(1),
+    margin: 0,
+    padding: 0,
+  },
   inputWrapper: {
     marginBottom: hp(2),
   },
