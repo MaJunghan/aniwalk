@@ -5,6 +5,14 @@ import DismissKeyboardView from '../components/DismissKeyboardView';
 import {RootStackParamList} from '../../AppInner';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Timer from '../components/Timer';
+import Config from 'react-native-config';
+import axios from 'axios';
+
+class CustomError extends Error {
+  response?: {
+    data: any;
+  };
+}
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -19,6 +27,7 @@ function SignUp({navigation}: SignUpScreenProps) {
     {id: 1, title: '여성', isActive: false},
     {id: 2, title: '선택하지 않음', isActive: false},
   ]);
+
   const emailRef = useRef<TextInput | null>(null);
   const emailAuthRef = useRef<TextInput | null>(null);
   const nameRef = useRef<TextInput | null>(null);
@@ -40,6 +49,17 @@ function SignUp({navigation}: SignUpScreenProps) {
       idx === index ? {...item, isActive: true} : {...item, isActive: false},
     );
     setGenderList(data);
+  };
+  const onChangeNickname = async () => {
+    try {
+      const {data} = await axios.get('https://aniwalk.tk/api/users/nickname');
+      setName(data?.data);
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
   };
 
   return (
@@ -75,7 +95,9 @@ function SignUp({navigation}: SignUpScreenProps) {
                   borderRadius: wp(1),
                   marginLeft: wp(5),
                 }}>
-                <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(2), color: 'white'}}>이메일 인증</Text>
+                <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(2), color: 'white'}}>
+                  {authCheck ? '재전송' : '이메일 인증'}
+                </Text>
               </View>
             </Pressable>
           </View>
@@ -87,7 +109,7 @@ function SignUp({navigation}: SignUpScreenProps) {
                 style={styles.textInput}
                 placeholder="인증번호 입력"
                 placeholderTextColor="#999"
-                onChangeText={onChangeName}
+                onChangeText={onChangeAuthNumber}
                 value={authNumber}
                 textContentType="name"
                 returnKeyType="next"
@@ -102,7 +124,6 @@ function SignUp({navigation}: SignUpScreenProps) {
             </View>
           </View>
         )}
-
         <View style={styles.inputWrapper}>
           <Text style={Platform.OS === 'ios' ? styles.label : styles.labelAnd}>
             닉네임<Text style={styles.special}>*</Text>
@@ -121,7 +142,7 @@ function SignUp({navigation}: SignUpScreenProps) {
               blurOnSubmit={false}
             />
             <View style={{position: 'absolute', marginLeft: wp(80)}}>
-              <Pressable onPress={() => console.log('새로고침')}>
+              <Pressable onPress={onChangeNickname}>
                 <Image
                   source={require('../assets/image/icon/refresh.png')}
                   style={{width: wp(5), height: hp(5), resizeMode: 'contain'}}

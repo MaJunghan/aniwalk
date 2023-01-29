@@ -8,7 +8,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../App';
+import {RootStackParamList} from '../../AppInner';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -57,6 +57,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
   //구글소셜로그인
   const onGoogleButtonPress = async () => {
     const {idToken} = await GoogleSignin.signIn();
+    console.log(idToken, 'token');
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     return auth().signInWithCredential(googleCredential);
   };
