@@ -25,7 +25,7 @@ function Timer() {
 
   return (
     <View>
-      <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(2), color: 'red'}}>
+      <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(1.5), color: 'red'}}>
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </Text>
     </View>

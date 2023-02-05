@@ -7,12 +7,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import Timer from '../components/Timer';
 import Config from 'react-native-config';
 import axios from 'axios';
-
-class CustomError extends Error {
-  response?: {
-    data: any;
-  };
-}
+import CustomError from '../types/index';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -50,10 +45,16 @@ function SignUp({navigation}: SignUpScreenProps) {
     );
     setGenderList(data);
   };
+  // 이메일 인증
+  const emailAuthentication = () => {};
+
+  // 닉네임 랜덤생성
   const onChangeNickname = async () => {
     try {
-      const {data} = await axios.get('https://aniwalk.tk/api/users/nickname');
-      setName(data?.data);
+      const {
+        data: {data},
+      } = await axios.get(`https://aniwalk.tk/api/users/nickname`);
+      setName(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -87,15 +88,15 @@ function SignUp({navigation}: SignUpScreenProps) {
               <View
                 style={{
                   backgroundColor: 'blue',
-                  width: wp(25),
-                  height: hp(7),
+                  width: wp(30),
+                  height: hp(6),
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: wp(1),
                   marginLeft: wp(5),
                 }}>
-                <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(2), color: 'white'}}>
+                <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(1.5), color: 'white'}}>
                   {authCheck ? '재전송' : '이메일 인증'}
                 </Text>
               </View>
@@ -106,7 +107,7 @@ function SignUp({navigation}: SignUpScreenProps) {
           <View style={styles.inputWrapper}>
             <View style={{flexDirection: 'row', alignItems: 'center', position: 'relative', marginTop: hp(2)}}>
               <TextInput
-                style={styles.textInput}
+                style={styles.authTextInput}
                 placeholder="인증번호 입력"
                 placeholderTextColor="#999"
                 onChangeText={onChangeAuthNumber}
@@ -118,9 +119,24 @@ function SignUp({navigation}: SignUpScreenProps) {
                 onSubmitEditing={() => nameRef.current?.focus()}
                 blurOnSubmit={false}
               />
-              <View style={{position: 'absolute', marginLeft: wp(80)}}>
+              <View style={{position: 'absolute', marginLeft: wp(44)}}>
                 <Timer />
               </View>
+              <Pressable>
+                <View
+                  style={{
+                    backgroundColor: 'blue',
+                    width: wp(30),
+                    height: hp(6),
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: wp(1),
+                    marginLeft: wp(5),
+                  }}>
+                  <Text style={{fontFamily: 'NotoSansKR-Bold', fontSize: hp(1.5), color: 'white'}}> 확인</Text>
+                </View>
+              </Pressable>
             </View>
           </View>
         )}
@@ -167,12 +183,11 @@ function SignUp({navigation}: SignUpScreenProps) {
             })}
           </View>
         </View>
-
-        <View style={styles.buttonZone}>
-          <Pressable>
-            <Text style={styles.buttonZoneText}>가입완료</Text>
-          </Pressable>
-        </View>
+      </View>
+      <View style={styles.buttonZone}>
+        <Pressable>
+          <Text style={styles.buttonZoneText}>가입완료</Text>
+        </Pressable>
       </View>
     </DismissKeyboardView>
   );
@@ -185,37 +200,51 @@ const styles = StyleSheet.create({
   },
   textInput: {
     width: wp(90),
-    height: hp(7),
+    height: hp(6),
     alignItems: 'center',
-    paddingLeft: wp(3),
+    paddingHorizontal: hp(2),
     borderWidth: 1,
-    borderColor: '#666',
+    borderColor: '#e3e3e3',
     borderRadius: wp(1),
     margin: 0,
     padding: 0,
+    fontSize: hp(1.5),
   },
   emailTextInput: {
-    width: wp(60),
-    height: hp(7),
+    width: wp(55),
+    height: hp(6),
     alignItems: 'center',
-    paddingLeft: wp(3),
+    paddingHorizontal: hp(2),
     borderWidth: 1,
-    borderColor: '#666',
+    borderColor: '#e3e3e3',
     borderRadius: wp(1),
     margin: 0,
     padding: 0,
+    fontSize: hp(1.5),
+  },
+  authTextInput: {
+    width: wp(55),
+    height: hp(6),
+    alignItems: 'center',
+    paddingHorizontal: hp(2),
+    borderWidth: 1,
+    borderColor: '#e3e3e3',
+    borderRadius: wp(1),
+    margin: 0,
+    padding: 0,
+    fontSize: hp(1.5),
   },
   inputWrapper: {
     marginBottom: hp(2),
   },
   label: {
     fontFamily: 'NotoSansKR-Bold',
-    fontSize: hp(2),
+    fontSize: hp(1.5),
     color: '#555',
   },
   labelAnd: {
     fontFamily: 'NotoSansKR-Bold',
-    fontSize: hp(2),
+    fontSize: hp(1.5),
     color: '#555',
     marginBottom: hp(-1),
   },
@@ -225,8 +254,7 @@ const styles = StyleSheet.create({
     borderRadius: wp(1),
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: hp(5),
-    marginBottom: hp(10),
+    marginTop: hp(25),
   },
   buttonZoneText: {
     color: '#ffffff',
@@ -250,16 +278,16 @@ const styles = StyleSheet.create({
   },
   genderViewActive: {
     width: wp(29),
-    height: hp(7),
+    height: hp(6),
     borderRadius: wp(1),
-    borderWidth: wp(0.2),
+    borderWidth: wp(0.4),
     borderColor: 'blue',
     justifyContent: 'center',
     alignItems: 'center',
   },
   genderView: {
     width: wp(29),
-    height: hp(7),
+    height: hp(6),
     borderRadius: wp(1),
     borderWidth: wp(0.2),
     borderColor: '#666',
@@ -268,15 +296,15 @@ const styles = StyleSheet.create({
   },
   genderTextActive: {
     color: 'blue',
-    fontSize: hp(2),
-    fontFamily: 'NotoSansKR-Bold',
+    fontSize: hp(1.5),
+    borderColor: 'blue',
   },
   genderText: {
     color: '#666',
-    fontSize: hp(2),
+    fontSize: hp(1.5),
   },
   select: {
-    fontSize: hp(1.5),
+    fontSize: hp(1.4),
     color: '#d1d1d1',
   },
   special: {

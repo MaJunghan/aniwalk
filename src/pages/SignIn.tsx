@@ -1,70 +1,111 @@
 import {Image, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
-import {login, getProfile} from '@react-native-seoul/kakao-login';
+import React, {useCallback, useEffect, useState} from 'react';
+import {login, getProfile, KakaoOAuthToken} from '@react-native-seoul/kakao-login';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import NaverLogin, {NaverLoginResponse} from '@react-native-seoul/naver-login';
+import NaverLogin, {GetProfileResponse, NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
+import axios from 'axios';
+import indexSlice from '../slices';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
+import CustomError from '../types/index';
+import {is} from 'immer/dist/internal';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 const MyFeed = ({navigation}: SignUpScreenProps) => {
-  const [result, setResult] = useState<string>('');
-  const [success, setSuccessResponse] = useState<NaverLoginResponse['successResponse']>();
-  const [failure, setFailureResponse] = useState<NaverLoginResponse['failureResponse']>();
-
+  const dispatch = useDispatch();
+  const userData = useSelector((state: RootState) => state.index.data);
   const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
   const consumerSecret = 'K7PbKFcaPM';
   const appName = 'com.aniwalk';
   const serviceUrlScheme = 'aniwalk';
 
-  // 카카오 프로필
-  const getKakaoProfile = async (): Promise<void> => {
-    const profile: any = await getProfile();
-    console.log('프로필', profile);
-
-    setResult(JSON.stringify(profile));
-  };
-
   // 카카오 로그인
   const signInWithKakao = async (): Promise<void> => {
     try {
-      const token = await login();
-      console.log(token, 'tokenData');
-      setResult(JSON.stringify(token));
+      const {accessToken} = (await login()) as KakaoOAuthToken;
+      const {
+        data: {data},
+      } = await axios.post(`https://aniwalk.tk/api/login`, {
+        accessToken: accessToken,
+        provider: 'KAKAO',
+      });
+      if (data) {
+        dispatch(indexSlice.actions.getLoginUserData(data));
+      }
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.error('login err', err);
-      getKakaoProfile();
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
     }
   };
+
   // 네이버 로그인
   const naverLogin = async () => {
-    const {failureResponse, successResponse} = await NaverLogin.login({
-      appName,
-      consumerKey,
-      consumerSecret,
-      serviceUrlScheme,
-    });
-    setSuccessResponse(successResponse);
-    console.log(successResponse);
-    setFailureResponse(failureResponse);
-  };
-  //구글소셜로그인
-  const onGoogleButtonPress = async () => {
-    const {idToken} = await GoogleSignin.signIn();
-    console.log(idToken, 'token');
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    return auth().signInWithCredential(googleCredential);
+    try {
+      const {successResponse} = await NaverLogin.login({
+        appName,
+        consumerKey,
+        consumerSecret,
+        serviceUrlScheme,
+      });
+      const {
+        data: {data},
+      } = await axios.post(`https://aniwalk.tk/api/login`, {
+        accessToken: successResponse?.accessToken,
+        provider: 'NAVER',
+      });
+      if (data) {
+        dispatch(indexSlice.actions.getLoginUserData(data));
+      }
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
   };
 
-  const toSignUp = useCallback(() => {
-    navigation.navigate('SignUp');
-  }, [navigation]);
+  //구글소셜로그인
+  const onGoogleButtonPress = async () => {
+    try {
+      const {idToken} = await GoogleSignin.signIn();
+      console.log(idToken, '구글');
+      const {
+        data: {data},
+      } = await axios.post(`https://aniwalk.tk/api/login`, {
+        accessToken: idToken,
+        provider: 'GOOGLE',
+      });
+      if (data) {
+        dispatch(indexSlice.actions.getLoginUserData(data));
+      }
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
+
+    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // return auth().signInWithCredential(googleCredential);
+  };
+
+  // 토큰값 스토어에 있으면 회원가입화면으로
+  useEffect(() => {
+    console.log(userData);
+    if (userData.accessToken !== '') {
+      navigation.navigate('SignUp');
+    }
+  }, [userData]);
+
   return (
     <SafeAreaView style={styles.container}>
       <DismissKeyboardView>
@@ -84,10 +125,6 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
             <Text style={styles.utilityText}>아이디 찾기</Text>
             <Text style={{height: wp(5), marginBottom: hp(0.5), color: '#999'}}>|</Text>
             <Text style={styles.utilityText}>비밀번호 찾기</Text>
-            <Text style={{height: wp(5), marginBottom: hp(0.5), color: '#999'}}>|</Text>
-            <Pressable onPress={toSignUp}>
-              <Text style={styles.utilityText}>회원가입</Text>
-            </Pressable>
           </View>
         </View>
         <View style={styles.social}>
@@ -202,7 +239,7 @@ const styles = StyleSheet.create({
   snsLogin: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: hp(5),
+    marginTop: hp(1),
   },
   socialBox: {
     flexDirection: 'row',

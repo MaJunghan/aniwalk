@@ -2,12 +2,22 @@ import {createSlice} from '@reduxjs/toolkit';
 
 interface InitialState {
   videoState: boolean;
-  nickName: string;
+  data: {
+    accessToken: string;
+    refreshToken: null;
+    isFirst: boolean;
+    email: string;
+  };
 }
 
 const initialState: InitialState = {
   videoState: false,
-  nickName: '',
+  data: {
+    accessToken: '',
+    refreshToken: null,
+    isFirst: false,
+    email: '',
+  },
 };
 
 const indexSlice = createSlice({
@@ -17,8 +27,8 @@ const indexSlice = createSlice({
     onChangeVideoState(state, action) {
       state.videoState = action.payload;
     },
-    onChangeNickname(state, action) {
-      state.nickName = action.payload;
+    getLoginUserData(state, action) {
+      state.data = action.payload;
     },
   },
   extraReducers: builder => {},
