@@ -101,9 +101,11 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
   // 토큰값 스토어에 있으면 회원가입화면으로
   useEffect(() => {
     console.log(userData);
-    if (userData.accessToken !== '') {
-      navigation.navigate('SignUp');
+    // 처음 회원가입하는 경우
+    if (userData.isFirst) {
+      return navigation.navigate('SignUp');
     }
+    // 로그인
   }, [userData]);
 
   return (

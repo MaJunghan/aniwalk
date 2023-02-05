@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Image, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DismissKeyboardView from '../components/DismissKeyboardView';
@@ -8,6 +8,8 @@ import Timer from '../components/Timer';
 import Config from 'react-native-config';
 import axios from 'axios';
 import CustomError from '../types/index';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../store/reducer';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -17,15 +19,17 @@ function SignUp({navigation}: SignUpScreenProps) {
   const [authNumber, setAuthNumber] = useState('');
   const [authCheck, setAuthCheck] = useState(false);
 
+  const userData = useSelector((state: RootState) => state.index.data);
+
+  const emailRef = useRef<TextInput | null>(null);
+  const emailAuthRef = useRef<TextInput | null>(null);
+  const nameRef = useRef<TextInput | null>(null);
+
   const [genderList, setGenderList] = useState([
     {id: 0, title: '남성', isActive: false},
     {id: 1, title: '여성', isActive: false},
     {id: 2, title: '선택하지 않음', isActive: false},
   ]);
-
-  const emailRef = useRef<TextInput | null>(null);
-  const emailAuthRef = useRef<TextInput | null>(null);
-  const nameRef = useRef<TextInput | null>(null);
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
@@ -46,7 +50,28 @@ function SignUp({navigation}: SignUpScreenProps) {
     setGenderList(data);
   };
   // 이메일 인증
-  const emailAuthentication = () => {};
+  const emailAuthentication = async () => {
+    // 버튼상태 변경
+    setAuthCheck(true);
+    // 이메일 인증 api 발송
+    try {
+      const data = await axios.post(
+        `https://aniwalk.tk/api/auth/email`,
+        {email: userData.email},
+        {
+          headers: {
+            Authorization: userData?.accessToken,
+          },
+        },
+      );
+      console.log(data);
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
+  };
 
   // 닉네임 랜덤생성
   const onChangeNickname = async () => {
@@ -62,6 +87,12 @@ function SignUp({navigation}: SignUpScreenProps) {
       }
     }
   };
+
+  useEffect(() => {
+    if (userData) {
+      setEmail(userData?.email);
+    }
+  }, [userData]);
 
   return (
     <DismissKeyboardView>
@@ -84,7 +115,7 @@ function SignUp({navigation}: SignUpScreenProps) {
               onSubmitEditing={() => emailAuthRef.current?.focus()}
               blurOnSubmit={false}
             />
-            <Pressable onPress={() => setAuthCheck(true)}>
+            <Pressable onPress={emailAuthentication}>
               <View
                 style={{
                   backgroundColor: 'blue',
