@@ -14,7 +14,7 @@ import indexSlice from '../slices';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import CustomError from '../types/index';
-import {is} from 'immer/dist/internal';
+import Config from 'react-native-config';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -32,7 +32,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
       const {accessToken} = (await login()) as KakaoOAuthToken;
       const {
         data: {data},
-      } = await axios.post(`https://aniwalk.tk/api/login`, {
+      } = await axios.post(`${Config.API_URL}/api/login`, {
         accessToken: accessToken,
         provider: 'KAKAO',
       });
@@ -58,7 +58,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
       });
       const {
         data: {data},
-      } = await axios.post(`https://aniwalk.tk/api/login`, {
+      } = await axios.post(`${Config.API_URL}/api/login`, {
         accessToken: successResponse?.accessToken,
         provider: 'NAVER',
       });
@@ -77,10 +77,9 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
   const onGoogleButtonPress = async () => {
     try {
       const {idToken} = await GoogleSignin.signIn();
-      console.log(idToken, '구글');
       const {
         data: {data},
-      } = await axios.post(`https://aniwalk.tk/api/login`, {
+      } = await axios.post(`${Config.API_URL}/api/login`, {
         accessToken: idToken,
         provider: 'GOOGLE',
       });

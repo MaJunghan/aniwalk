@@ -55,7 +55,7 @@ function SignUp({navigation}: SignUpScreenProps) {
     setAuthCheck(true);
     // 이메일 인증 api 발송
     try {
-      const data = await axios.post(
+      await axios.post(
         `https://aniwalk.tk/api/auth/email`,
         {email: userData.email},
         {
@@ -64,7 +64,6 @@ function SignUp({navigation}: SignUpScreenProps) {
           },
         },
       );
-      console.log(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
