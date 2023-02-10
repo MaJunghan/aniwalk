@@ -5,7 +5,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import NaverLogin, {GetProfileResponse, NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
@@ -21,10 +20,10 @@ type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 const MyFeed = ({navigation}: SignUpScreenProps) => {
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.index.data);
-  const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
-  const consumerSecret = 'K7PbKFcaPM';
-  const appName = 'com.aniwalk';
-  const serviceUrlScheme = 'aniwalk';
+  const consumerKey = `${Config.CONSUMER_KEY}`;
+  const consumerSecret = `${Config.CONSUMER_SECRET}`;
+  const appName = `${Config.APP_NAME}`;
+  const serviceUrlScheme = `${Config.SERVICE_URL_SCHEME}`;
 
   // 카카오 로그인
   const signInWithKakao = async (): Promise<void> => {
@@ -92,9 +91,6 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
         err.response?.data;
       }
     }
-
-    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // return auth().signInWithCredential(googleCredential);
   };
 
   // 토큰값 스토어에 있으면 회원가입화면으로

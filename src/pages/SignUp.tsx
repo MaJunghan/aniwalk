@@ -8,7 +8,7 @@ import Timer from '../components/Timer';
 import Config from 'react-native-config';
 import axios from 'axios';
 import CustomError from '../types/index';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
@@ -56,7 +56,7 @@ function SignUp({navigation}: SignUpScreenProps) {
     // 이메일 인증 api 발송
     try {
       await axios.post(
-        `https://aniwalk.tk/api/auth/email`,
+        `https:${Config.API_URL}/api/auth/email`,
         {email: userData.email},
         {
           headers: {
