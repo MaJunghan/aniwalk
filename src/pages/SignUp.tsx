@@ -56,7 +56,7 @@ function SignUp({navigation}: SignUpScreenProps) {
     // 이메일 인증 api 발송
     try {
       await axios.post(
-        `https://aniwalk.tk/api/auth/email`,
+        `${Config.API_URL}/api/auth/email`,
         {email: userData.email},
         {
           headers: {
@@ -77,7 +77,7 @@ function SignUp({navigation}: SignUpScreenProps) {
     try {
       const {
         data: {data},
-      } = await axios.get(`https://aniwalk.tk/api/users/nickname`);
+      } = await axios.get(`${Config.API_URL}/api/users/nickname`);
       setName(data);
     } catch (err) {
       if (err instanceof CustomError) {

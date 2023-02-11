@@ -21,10 +21,10 @@ type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 const MyFeed = ({navigation}: SignUpScreenProps) => {
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.index.data);
-  const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
-  const consumerSecret = 'K7PbKFcaPM';
-  const appName = 'com.aniwalk';
-  const serviceUrlScheme = 'aniwalk';
+  const consumerKey = `${Config.CONSUMER_KEY}`;
+  const consumerSecret = `${Config.CONSUMER_SECRET}`;
+  const appName = `${Config.APP_NAME}`;
+  const serviceUrlScheme = `${Config.SERVICE_URL_SCHEME}`;
 
   // 카카오 로그인
   const signInWithKakao = async (): Promise<void> => {
