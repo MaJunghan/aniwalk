@@ -18,7 +18,9 @@ function SignUp({navigation}: SignUpScreenProps) {
   const [authNumber, setAuthNumber] = useState('');
   // 이메일 인증 참조
   const [authCheck, setAuthCheck] = useState(false);
-  const [reAuthCheck, setReAuthCheck] = useState(false);
+  // 타이머
+  const [minutes, setMinutes] = useState(3);
+  const [seconds, setSeconds] = useState(0);
 
   const userData = useSelector((state: RootState) => state.index.data);
 
@@ -65,12 +67,14 @@ function SignUp({navigation}: SignUpScreenProps) {
   };
 
   // 이메일 인증
-  const onClickEmailAuthentication = async () => {
+  const onClickEmailAuthentication = () => {
     // 버튼상태 변경
     setAuthCheck(true);
     // 이메일 인증 api 발송
     try {
       emailAuthorizationSend(email);
+      setMinutes(3);
+      setSeconds(0);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -82,11 +86,8 @@ function SignUp({navigation}: SignUpScreenProps) {
   // 이메일 인증번호 확인
   const emailAuthenticationConfirmInput = async () => {
     try {
-      const code: unknown = await emailAuthorizationConfirm(authNumber);
-      if (code === 0) {
-        // 타이머 초기화해야함.
-        setReAuthCheck(true);
-      }
+      const data = await emailAuthorizationConfirm(authNumber);
+      console.log(data, '검증스');
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -158,7 +159,7 @@ function SignUp({navigation}: SignUpScreenProps) {
                 blurOnSubmit={false}
               />
               <View style={{position: 'absolute', marginLeft: wp(44)}}>
-                <Timer />
+                <Timer minutes={minutes} setMinutes={setMinutes} seconds={seconds} setSeconds={setSeconds} />
               </View>
               <Pressable onPress={emailAuthenticationConfirmInput}>
                 <View

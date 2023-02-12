@@ -1,11 +1,15 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Text, View} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-function Timer() {
-  const [minutes, setMinutes] = useState(3);
-  const [seconds, setSeconds] = useState(0);
+type TimerProps = {
+  minutes: number;
+  setMinutes: React.Dispatch<React.SetStateAction<number>>;
+  seconds: number;
+  setSeconds: React.Dispatch<React.SetStateAction<number>>;
+};
 
+function Timer({minutes, setMinutes, seconds, setSeconds}: TimerProps) {
   useEffect(() => {
     const countdown = setInterval(() => {
       if (Number(seconds) > 0) {

@@ -26,4 +26,4 @@ export const emailAuthorizationSend = email => {
 };
 
 // 이메일 인증 검증
-export const emailAuthorizationConfirm = authKey => api.post('api/auth/email/verify', {authKey});
+export const emailAuthorizationConfirm = authKey => api.post('api/auth/email/verify', {authKey}).then(res => res.data);
