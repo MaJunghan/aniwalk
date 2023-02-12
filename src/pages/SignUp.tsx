@@ -5,11 +5,10 @@ import DismissKeyboardView from '../components/DismissKeyboardView';
 import {RootStackParamList} from '../../AppInner';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Timer from '../components/Timer';
-import Config from 'react-native-config';
-import axios from 'axios';
 import CustomError from '../types/index';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
+import {getNickName, emailAuthorizationSend, emailAuthorizationConfirm} from '../api';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
@@ -17,7 +16,9 @@ function SignUp({navigation}: SignUpScreenProps) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [authNumber, setAuthNumber] = useState('');
+  // 이메일 인증 참조
   const [authCheck, setAuthCheck] = useState(false);
+  const [reAuthCheck, setReAuthCheck] = useState(false);
 
   const userData = useSelector((state: RootState) => state.index.data);
 
@@ -49,21 +50,12 @@ function SignUp({navigation}: SignUpScreenProps) {
     );
     setGenderList(data);
   };
-  // 이메일 인증
-  const emailAuthentication = async () => {
-    // 버튼상태 변경
-    setAuthCheck(true);
-    // 이메일 인증 api 발송
+
+  // 닉네임 랜덤생성
+  const onChangeNickname = async () => {
     try {
-      await axios.post(
-        `${Config.API_URL}/api/auth/email`,
-        {email: userData.email},
-        {
-          headers: {
-            Authorization: userData?.accessToken,
-          },
-        },
-      );
+      const data = await getNickName();
+      setName(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -72,13 +64,29 @@ function SignUp({navigation}: SignUpScreenProps) {
     }
   };
 
-  // 닉네임 랜덤생성
-  const onChangeNickname = async () => {
+  // 이메일 인증
+  const onClickEmailAuthentication = async () => {
+    // 버튼상태 변경
+    setAuthCheck(true);
+    // 이메일 인증 api 발송
     try {
-      const {
-        data: {data},
-      } = await axios.get(`${Config.API_URL}/api/users/nickname`);
-      setName(data);
+      emailAuthorizationSend(email);
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
+  };
+
+  // 이메일 인증번호 확인
+  const emailAuthenticationConfirmInput = async () => {
+    try {
+      const code: unknown = await emailAuthorizationConfirm(authNumber);
+      if (code === 0) {
+        // 타이머 초기화해야함.
+        setReAuthCheck(true);
+      }
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -114,7 +122,7 @@ function SignUp({navigation}: SignUpScreenProps) {
               onSubmitEditing={() => emailAuthRef.current?.focus()}
               blurOnSubmit={false}
             />
-            <Pressable onPress={emailAuthentication}>
+            <Pressable onPress={onClickEmailAuthentication}>
               <View
                 style={{
                   backgroundColor: 'blue',
@@ -152,7 +160,7 @@ function SignUp({navigation}: SignUpScreenProps) {
               <View style={{position: 'absolute', marginLeft: wp(44)}}>
                 <Timer />
               </View>
-              <Pressable>
+              <Pressable onPress={emailAuthenticationConfirmInput}>
                 <View
                   style={{
                     backgroundColor: 'blue',

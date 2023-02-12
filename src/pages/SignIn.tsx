@@ -5,18 +5,21 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import NaverLogin, {GetProfileResponse, NaverLoginResponse} from '@react-native-seoul/naver-login';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../AppInner';
-import axios from 'axios';
 import indexSlice from '../slices';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import CustomError from '../types/index';
 import Config from 'react-native-config';
+import {socialLogin, socialToken} from '../api';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
+type CallBackDataLogin = {
+  accessToken: string;
+  email: string;
+};
 
 const MyFeed = ({navigation}: SignUpScreenProps) => {
   const dispatch = useDispatch();
@@ -26,19 +29,18 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
   const appName = `${Config.APP_NAME}`;
   const serviceUrlScheme = `${Config.SERVICE_URL_SCHEME}`;
 
+  // redux저장, axios defaults.headers 저장
+  const socialCallback = (data: CallBackDataLogin) => {
+    socialToken(data.accessToken);
+    dispatch(indexSlice.actions.getLoginUserData(data));
+  };
+
   // 카카오 로그인
   const signInWithKakao = async (): Promise<void> => {
     try {
       const {accessToken} = (await login()) as KakaoOAuthToken;
-      const {
-        data: {data},
-      } = await axios.post(`${Config.API_URL}/api/login`, {
-        accessToken: accessToken,
-        provider: 'KAKAO',
-      });
-      if (data) {
-        dispatch(indexSlice.actions.getLoginUserData(data));
-      }
+      const data = await socialLogin(accessToken, 'KAKAO');
+      if (data) socialCallback(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -56,15 +58,8 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
         consumerSecret,
         serviceUrlScheme,
       });
-      const {
-        data: {data},
-      } = await axios.post(`${Config.API_URL}/api/login`, {
-        accessToken: successResponse?.accessToken,
-        provider: 'NAVER',
-      });
-      if (data) {
-        dispatch(indexSlice.actions.getLoginUserData(data));
-      }
+      const data = await socialLogin(successResponse?.accessToken, 'NAVER');
+      if (data) socialCallback(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -77,30 +72,19 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
   const onGoogleButtonPress = async () => {
     try {
       const {idToken} = await GoogleSignin.signIn();
-      const {
-        data: {data},
-      } = await axios.post(`${Config.API_URL}/api/login`, {
-        accessToken: idToken,
-        provider: 'GOOGLE',
-      });
-      if (data) {
-        dispatch(indexSlice.actions.getLoginUserData(data));
-      }
+      const data = await socialLogin(idToken, 'GOOGLE');
+      if (data) socialCallback(data);
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
         err.response?.data;
       }
     }
-
-    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // return auth().signInWithCredential(googleCredential);
   };
 
-  // 토큰값 스토어에 있으면 회원가입화면으로
   useEffect(() => {
-    console.log(userData);
-    // 처음 회원가입하는 경우
+    if (userData) console.log(userData);
+    // first => 처음 회원가입하는 경우
     if (userData.isFirst) {
       return navigation.navigate('SignUp');
     }
@@ -140,10 +124,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
             <Text style={styles.snsText}>SNS 계정으로 로그인</Text>
           </View>
           <View style={styles.socialBox}>
-            <Pressable
-              onPress={() => {
-                signInWithKakao();
-              }}>
+            <Pressable onPress={() => signInWithKakao()}>
               <View style={styles.kakaoLoginBox}>
                 <Image
                   source={require('../assets/image/login/kakao.png')}
@@ -152,10 +133,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
                 />
               </View>
             </Pressable>
-            <Pressable
-              onPress={() => {
-                naverLogin();
-              }}>
+            <Pressable onPress={() => naverLogin()}>
               <View>
                 <Image
                   source={require('../assets/image/login/naver.png')}
