@@ -72,6 +72,8 @@ function SignUp({navigation}: SignUpScreenProps) {
     setAuthCheck(true);
     // 이메일 인증 api 발송
     try {
+      // code number로 2번쨰 이메일요청부터는 알람추가
+      // 시퀸스로 해도될듯.
       emailAuthorizationSend(email);
       setMinutes(3);
       setSeconds(0);
