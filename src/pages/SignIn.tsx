@@ -24,10 +24,10 @@ type CallBackDataLogin = {
 const MyFeed = ({navigation}: SignUpScreenProps) => {
   const dispatch = useDispatch();
   const userData = useSelector((state: RootState) => state.index.data);
-  const consumerKey = `${Config.CONSUMER_KEY}`;
-  const consumerSecret = `${Config.CONSUMER_SECRET}`;
-  const appName = `${Config.APP_NAME}`;
-  const serviceUrlScheme = `${Config.SERVICE_URL_SCHEME}`;
+  const consumerKey = 'lpKmvVpKYtGlS9D8qI6j';
+  const consumerSecret = 'K7PbKFcaPM';
+  const appName = 'com.aniwalk';
+  const serviceUrlScheme = 'aniwalk';
 
   // redux저장, axios defaults.headers 저장
   const socialCallback = (data: CallBackDataLogin) => {

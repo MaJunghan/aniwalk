@@ -2,7 +2,7 @@ import axios from 'axios';
 import Config from 'react-native-config';
 
 const api = axios.create({
-  baseURL: `${Config.API_URL}`,
+  baseURL: 'https://aniwalk.tk',
 });
 
 // 소셜 로그인

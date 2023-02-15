@@ -11,7 +11,7 @@ import Config from 'react-native-config';
 function App() {
   const googleSigninConfigure = () => {
     GoogleSignin.configure({
-      webClientId: `${Config.GOOGLE_WEB_CLIENT_ID}`,
+      webClientId: '403785232932-789ojdob1p6rbi85hkf6irvjn1qhsor7.apps.googleusercontent.com',
     });
   };
   usePermissions();
