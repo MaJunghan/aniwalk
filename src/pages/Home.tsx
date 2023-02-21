@@ -7,16 +7,7 @@ import {useDispatch} from 'react-redux';
 import Reels from '../components/Reels';
 import {useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
-import {useAppDispatch} from '../store';
 import indexSlice from '../slices';
-
-interface SwiperDataType {
-  id: number;
-  require: NodeRequire;
-  mode: string;
-  paused: boolean;
-  repeat: boolean;
-}
 
 function Home() {
   const dispatch = useDispatch();
@@ -25,15 +16,6 @@ function Home() {
 
   const [page, setPage] = useState(0);
   const videoState = useSelector((state: RootState) => state.index.videoState);
-
-  // paused : 일시중지여부 , repeat : 반복여부
-  const swiperData: SwiperDataType[] = [
-    {id: 0, require: require('../assets/video/tv.mp4'), mode: 'cover', paused: false, repeat: true},
-    {id: 1, require: require('../assets/video/bird.mp4'), mode: 'cover', paused: false, repeat: true},
-    {id: 2, require: require('../assets/video/pet2.mp4'), mode: 'cover', paused: false, repeat: true},
-    {id: 3, require: require('../assets/video/pet3.mp4'), mode: 'cover', paused: false, repeat: true},
-    {id: 4, require: require('../assets/video/pet4.mp4'), mode: 'cover', paused: false, repeat: true},
-  ];
 
   const RainbowSheet = [
     {

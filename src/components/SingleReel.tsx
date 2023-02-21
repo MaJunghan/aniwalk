@@ -33,7 +33,7 @@ function SingleReel({index, currentIndex, item}: any): any {
           resizeMode="cover"
           paused={false}
           source={item.video}
-          muted={true}
+          muted={mute}
           style={{width: '100%', height: '100%', position: 'absolute'}}
         />
       </Pressable>
