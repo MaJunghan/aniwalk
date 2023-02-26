@@ -8,7 +8,7 @@ import Timer from '../components/Timer';
 import CustomError from '../types/index';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
-import {getNickName, emailAuthorizationSend, emailAuthorizationConfirm} from '../api';
+import {getNickName, emailAuthorizationSend, emailAuthorizationConfirm, joinMemberShip} from '../api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import indexSlice from '../slices';
 
@@ -32,10 +32,16 @@ function SignUp({navigation}: SignUpScreenProps) {
   const nameRef = useRef<TextInput | null>(null);
 
   const [genderList, setGenderList] = useState([
-    {id: 0, title: '남성', isActive: false},
-    {id: 1, title: '여성', isActive: false},
-    {id: 2, title: '선택하지 않음', isActive: false},
+    {id: 0, title: '남성', isActive: false, value: 'M'},
+    {id: 1, title: '여성', isActive: false, value: 'W'},
+    {id: 2, title: '선택하지 않음', isActive: false, value: ''},
   ]);
+
+  // 이메일 정규식
+  const validEmail = (email: string) => {
+    const re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    return re.test(email);
+  };
 
   const onChangeEmail = useCallback((text: string) => {
     setEmail(text.trim());
@@ -77,9 +83,13 @@ function SignUp({navigation}: SignUpScreenProps) {
     try {
       // code number로 2번쨰 이메일요청부터는 알람추가
       // 시퀸스로 해도될듯.
-      emailAuthorizationSend(email);
-      setMinutes(3);
-      setSeconds(0);
+      const data = validEmail(email);
+      if (data) {
+        emailAuthorizationSend(email);
+        setMinutes(3);
+        setSeconds(0);
+      }
+      if (!data) Alert.alert('이메일 형식이 올바르지 않습니다.', '확인');
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
@@ -107,8 +117,25 @@ function SignUp({navigation}: SignUpScreenProps) {
 
   // 가입완료, 로컬스토리지 토큰 저장
   const movePetInfoRoutePage = async () => {
-    await AsyncStorage.setItem('accessToken', JSON.stringify(userData.accessToken));
-    dispatch(indexSlice.actions.onChangeMemberShip());
+    try {
+      const genderObj = genderList.filter(item => item.isActive);
+      const result = await joinMemberShip({
+        email,
+        nickname: name,
+        gender: genderObj[0].value,
+      });
+      // 회원가입성공하면
+      if (result === 200) {
+        console.log(result, '절트');
+        await AsyncStorage.setItem('accessToken', JSON.stringify(userData.accessToken));
+        dispatch(indexSlice.actions.onChangeMemberShip());
+      }
+    } catch (err) {
+      if (err instanceof CustomError) {
+        console.error(err.response?.data);
+        err.response?.data;
+      }
+    }
   };
 
   useEffect(() => {

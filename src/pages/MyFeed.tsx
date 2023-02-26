@@ -17,7 +17,6 @@ const MyFeedRoute = () => {
     const getData = async () => {
       const storageData = await AsyncStorage.getItem('accessToken');
       if (storageData) {
-        console.log(JSON.parse(storageData), '카카카카');
         setAccessToken(JSON.parse(storageData));
       }
     };
