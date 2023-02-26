@@ -19,6 +19,7 @@ export type TabNavigatorParamList = {
 export type RootStackParamList = {
   SignIn: undefined;
   SignUp: undefined;
+  PetInfoRoute: undefined;
 };
 
 function AppInner() {

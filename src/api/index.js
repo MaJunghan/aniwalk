@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Config from 'react-native-config';
 
 const api = axios.create({
   baseURL: 'https://aniwalk.tk',

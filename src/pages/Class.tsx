@@ -1,11 +1,11 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 function Class() {
   return (
-    <SafeAreaView>
+    <View>
       <Text>dd</Text>
-    </SafeAreaView>
+    </View>
   );
 }
 

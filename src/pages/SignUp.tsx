@@ -1,18 +1,21 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Image, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, Image, Platform, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DismissKeyboardView from '../components/DismissKeyboardView';
 import {RootStackParamList} from '../../AppInner';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Timer from '../components/Timer';
 import CustomError from '../types/index';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import {getNickName, emailAuthorizationSend, emailAuthorizationConfirm} from '../api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import indexSlice from '../slices';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
 
 function SignUp({navigation}: SignUpScreenProps) {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [authNumber, setAuthNumber] = useState('');
@@ -88,14 +91,24 @@ function SignUp({navigation}: SignUpScreenProps) {
   // 이메일 인증번호 확인
   const emailAuthenticationConfirmInput = async () => {
     try {
-      const data = await emailAuthorizationConfirm(authNumber);
-      console.log(data, '검증스');
+      const {result} = await emailAuthorizationConfirm(authNumber);
+      if (result === 'Success') {
+        Alert.alert('인증 성공!');
+        setAuthCheck(false);
+      }
+      if (result !== 'Success') return Alert.alert('인증 실패하였습니다. 다시 시도해주세요!');
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);
         err.response?.data;
       }
     }
+  };
+
+  // 가입완료, 로컬스토리지 토큰 저장
+  const movePetInfoRoutePage = async () => {
+    await AsyncStorage.setItem('accessToken', JSON.stringify(userData.accessToken));
+    dispatch(indexSlice.actions.onChangeMemberShip());
   };
 
   useEffect(() => {
@@ -226,7 +239,7 @@ function SignUp({navigation}: SignUpScreenProps) {
         </View>
       </View>
       <View style={styles.buttonZone}>
-        <Pressable>
+        <Pressable onPress={movePetInfoRoutePage}>
           <Text style={styles.buttonZoneText}>가입완료</Text>
         </Pressable>
       </View>

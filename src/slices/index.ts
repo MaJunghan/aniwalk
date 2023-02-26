@@ -8,6 +8,7 @@ interface InitialState {
     isFirst: boolean;
     email: string;
   };
+  memberShipState: boolean;
 }
 
 const initialState: InitialState = {
@@ -18,6 +19,7 @@ const initialState: InitialState = {
     isFirst: false,
     email: '',
   },
+  memberShipState: false,
 };
 
 const indexSlice = createSlice({
@@ -29,6 +31,9 @@ const indexSlice = createSlice({
     },
     getLoginUserData(state, action) {
       state.data = action.payload;
+    },
+    onChangeMemberShip(state) {
+      state.memberShipState = true;
     },
   },
   extraReducers: builder => {},
