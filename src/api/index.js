@@ -21,7 +21,7 @@ export const getNickName = async () => await api.get(`/api/users/nickname`).then
 
 // 이메일 인증 발송
 export const emailAuthorizationSend = email => {
-  return api.post('/api/auth/email', {email}).then(res => res.data.code);
+  return api.post('/api/auth/email', {email}).then(res => res.data);
 };
 
 // 이메일 인증 검증

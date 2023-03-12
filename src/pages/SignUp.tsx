@@ -76,20 +76,19 @@ function SignUp({navigation}: SignUpScreenProps) {
   };
 
   // 이메일 인증
-  const onClickEmailAuthentication = () => {
+  const onClickEmailAuthentication = async () => {
     // 버튼상태 변경
     setAuthCheck(true);
     // 이메일 인증 api 발송
     try {
       // code number로 2번쨰 이메일요청부터는 알람추가
       // 시퀸스로 해도될듯.
-      const data = validEmail(email);
-      if (data) {
-        emailAuthorizationSend(email);
+      const {code} = await emailAuthorizationSend(email);
+      if (code === 0) {
         setMinutes(3);
-        setSeconds(0);
+        return setSeconds(0);
       }
-      if (!data) Alert.alert('이메일 형식이 올바르지 않습니다.', '확인');
+      if (code !== 0) return Alert.alert('알림', '재전송에 실패하였습니다. 다시 시도해주세요.');
     } catch (err) {
       if (err instanceof CustomError) {
         console.error(err.response?.data);

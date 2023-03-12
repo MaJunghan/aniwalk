@@ -24,14 +24,6 @@ const MyFeedRoute = () => {
     getData();
   }, [memberShipState]);
 
-  if (accessToken) {
-    return (
-      <View>
-        <Text>로그인후 마이피드페이지</Text>
-      </View>
-    );
-  }
-
   if (!accessToken) {
     return (
       <Stack.Navigator initialRouteName="SignIn">
@@ -56,6 +48,14 @@ const MyFeedRoute = () => {
           }}
         />
       </Stack.Navigator>
+    );
+  }
+
+  if (accessToken) {
+    return (
+      <View>
+        <Text>로그인후 마이피드페이지</Text>
+      </View>
     );
   }
 };
