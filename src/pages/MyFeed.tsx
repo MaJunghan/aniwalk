@@ -3,9 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SignUp from './SignUp';
 import SignIn from './SignIn';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Text, View} from 'react-native';
 import {RootState} from '../store/reducer';
 import {useSelector} from 'react-redux';
+import PetSecurityNumber from '../components/PetSecurityNumber';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,11 +52,7 @@ const MyFeedRoute = () => {
   }
 
   if (accessToken) {
-    return (
-      <View>
-        <Text>로그인후 마이피드페이지</Text>
-      </View>
-    );
+    return <PetSecurityNumber />;
   }
 };
 export default MyFeedRoute;
