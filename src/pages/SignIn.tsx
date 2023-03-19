@@ -12,7 +12,6 @@ import indexSlice from '../slices';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store/reducer';
 import CustomError from '../types/index';
-import Config from 'react-native-config';
 import {socialLogin, socialToken} from '../api';
 
 type SignUpScreenProps = NativeStackScreenProps<RootStackParamList>;
@@ -62,6 +61,7 @@ const MyFeed = ({navigation}: SignUpScreenProps) => {
       if (data) socialCallback(data);
     } catch (err) {
       if (err instanceof CustomError) {
+        console.log('에러다에러');
         console.error(err.response?.data);
         err.response?.data;
       }

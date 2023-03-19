@@ -11,21 +11,33 @@ export const socialLogin = async (accessToken, provider) => {
       accessToken: accessToken,
       provider: provider,
     })
-    .then(res => res.data.data);
+    .then(res => res.data.data)
+    .catch(err => console.log(err, '에러다에러'));
 };
 // 토큰 헤더 저장
 export const socialToken = token => (api.defaults.headers.common['Authorization'] = `Bearer ${token}`);
 
 // 랜덤 닉네임 생성
-export const getNickName = async () => await api.get(`/api/users/nickname`).then(res => res.data.data);
+export const getNickName = async () =>
+  await api
+    .get(`/api/users/nickname`)
+    .then(res => res.data.data)
+    .catch(err => console.log(err, '에러다에러'));
 
 // 이메일 인증 발송
 export const emailAuthorizationSend = email => {
-  return api.post('/api/auth/email', {email}).then(res => res.data);
+  return api
+    .post('/api/auth/email', {email})
+    .then(res => res.data)
+    .catch(err => console.log(err, '에러다에러'));
 };
 
 // 이메일 인증 검증
-export const emailAuthorizationConfirm = authKey => api.post('api/auth/email/verify', {authKey}).then(res => res.data);
+export const emailAuthorizationConfirm = authKey =>
+  api
+    .post('api/auth/email/verify', {authKey})
+    .then(res => res.data)
+    .catch(err => console.log(err, '에러다에러'));
 
 // 회원가입
 export const joinMemberShip = ({email, nickname, gender}) =>
@@ -35,4 +47,5 @@ export const joinMemberShip = ({email, nickname, gender}) =>
       nickname,
       gender,
     })
-    .then(res => res.status);
+    .then(res => res.status)
+    .catch(err => console.log(err, '에러다에러'));

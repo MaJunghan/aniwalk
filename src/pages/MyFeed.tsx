@@ -6,6 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RootState} from '../store/reducer';
 import {useSelector} from 'react-redux';
 import PetSecurityNumber from '../components/PetSecurityNumber';
+import MyfeedList from '../components/MyfeedList';
+import {ScrollView, View} from 'react-native';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -52,7 +55,12 @@ const MyFeedRoute = () => {
   }
 
   if (accessToken) {
-    return <PetSecurityNumber />;
+    return (
+      <ScrollView style={{backgroundColor: '#ffffff', paddingHorizontal: wp(3)}}>
+        <PetSecurityNumber />
+        <MyfeedList />
+      </ScrollView>
+    );
   }
 };
 export default MyFeedRoute;
