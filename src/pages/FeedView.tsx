@@ -1,126 +1,77 @@
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TouchableOpacity,
-  Platform,
-  Linking,
-} from 'react-native';
-import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
+import {useState} from 'react';
+import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import SearchBar from '../components/SearchBar';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-import BackgroundJob from 'react-native-background-actions';
+function Class() {
+  const [searchState, setSearchState] = useState(false);
+  const [tabbarData, setTabbarData] = useState([
+    {id: 0, title: '일반피드', isActive: false},
+    {id: 1, title: '산책피드', isActive: false},
+  ]);
 
-const sleep = (time: any) => new Promise<void>(resolve => setTimeout(() => resolve(), time));
-
-BackgroundJob.on('expiration', () => {
-  console.log('iOS: I am being closed!');
-});
-
-const taskRandom = async (taskData: any) => {
-  if (Platform.OS === 'ios') {
-    console.warn(
-      'This task will not keep your app alive in the background by itself, use other library like react-native-track-player that use audio,',
-      'geolocalization, etc. to keep your app alive in the background while you excute the JS from this library.',
-    );
-  }
-  await new Promise(async resolve => {
-    // For loop with a delay
-    const {delay} = taskData;
-    console.log(BackgroundJob.isRunning(), delay);
-    for (let i = 0; BackgroundJob.isRunning(); i++) {
-      console.log('Runned -> ', i);
-      await BackgroundJob.updateNotification({taskDesc: 'Runned -> ' + i});
-      await sleep(delay);
-    }
-  });
-};
-
-const options = {
-  taskName: 'Example',
-  taskTitle: 'ExampleTask title',
-  taskDesc: 'ExampleTask desc',
-  taskIcon: {
-    name: 'ic_launcher',
-    type: 'mipmap',
-  },
-  color: '#ff00ff',
-  linkingURI: 'exampleScheme://chat/jane',
-  parameters: {
-    delay: 1000,
-  },
-};
-
-function handleOpenURL(evt: any) {
-  console.log(evt.url);
-  // do something with the url
-}
-
-Linking.addEventListener('url', handleOpenURL);
-
-const FeedView = () => {
-  const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null;
-
-  let playing = BackgroundJob.isRunning();
-
-  /**
-   * Toggles the background task
-   */
-  const toggleBackground = async () => {
-    playing = !playing;
-    if (playing) {
-      try {
-        console.log('Trying to start background service');
-        await BackgroundJob.start(taskRandom, options);
-        console.log('Successful start!');
-      } catch (e) {
-        console.log('Error', e);
-      }
-    } else {
-      console.log('Stop background service');
-      await BackgroundJob.stop();
-    }
+  const onChangeSearchState = () => {
+    setSearchState(prev => !prev);
+    console.log(searchState);
   };
-  return (
-    <SafeAreaView>
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
-        <Header />
-        {!usingHermes ? null : (
-          <View style={styles.engine}>
-            <Text style={styles.footer}>Engine: Hermes</Text>
-          </View>
-        )}
-        <View style={styles.body}>
-          <TouchableOpacity
-            style={{height: 100, width: 100, backgroundColor: 'red'}}
-            onPress={toggleBackground}></TouchableOpacity>
+
+  const onActiveTabbar = (index: number) => {
+    const data = tabbarData.map((item, idx) =>
+      idx === index ? {...item, isActive: true} : {...item, isActive: false},
+    );
+    setTabbarData(data);
+  };
+
+  const tabBar = tabbarData.map((item, index) => {
+    return (
+      <Pressable key={item.id} onPress={() => onActiveTabbar(index)}>
+        <View style={item.isActive ? styles.tabBarActive : styles.tabBar}>
+          <Text style={item.isActive ? styles.tabBarFontActive : styles.tabBarFont}>{item.title}</Text>
         </View>
-      </ScrollView>
+      </Pressable>
+    );
+  });
+
+  return (
+    <SafeAreaView style={{backgroundColor: '#ffffff', height: hp(100)}}>
+      <SearchBar onChangeSearchState={onChangeSearchState} searchState={searchState} />
+      <View
+        style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: wp(10), marginTop: hp(1.5)}}>
+        {tabBar}
+      </View>
     </SafeAreaView>
   );
-};
-export default FeedView;
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  tabBar: {
+    width: wp(25),
+    height: hp(5),
+    borderWidth: wp(0.3),
+    borderRadius: wp(5),
+    borderColor: '#e5e5e5',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  tabBarActive: {
+    width: wp(25),
+    height: hp(5),
+    borderWidth: wp(0.3),
+    borderRadius: wp(5),
+    borderColor: 'blue',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  body: {
-    backgroundColor: Colors.white,
+  tabBarFontActive: {
+    fontFamily: 'NotoSansKR-Light',
+    color: 'blue',
+    fontSize: hp(1.5),
   },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  tabBarFont: {
+    fontFamily: 'NotoSansKR-Light',
+    color: '#333',
+    fontSize: hp(1.5),
   },
 });
+
+export default Class;
