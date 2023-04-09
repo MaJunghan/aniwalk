@@ -112,19 +112,20 @@ function Class() {
             }}>
             <View
               style={{
-                width: 261,
+                width: wp(66),
+                height: hp(40),
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
               }}>
               {data.images.slice(0, 4).map(imageData => {
                 return (
-                  <TouchableOpacity style={{paddingBottom: 2}} activeOpacity={0.8}>
+                  <TouchableOpacity style={{marginRight: 1, marginBottom: hp(1)}} activeOpacity={0.8}>
                     <Image
                       source={imageData}
                       style={{
-                        width: 129,
-                        height: 150,
+                        width: wp(32),
+                        height: hp(19),
                       }}
                     />
                   </TouchableOpacity>
@@ -132,20 +133,20 @@ function Class() {
               })}
             </View>
             <TouchableOpacity style={{marginLeft: 2}} activeOpacity={0.8}>
-              <Image source={data.images[4]} style={{width: 129, height: 302}} resizeMode="stretch" />
+              <Image source={data.images[4]} style={{width: wp(33), height: hp(39)}} resizeMode="stretch" />
             </TouchableOpacity>
           </View>
         ) : null}
         {data.id === 1 ? (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <TouchableOpacity style={{paddingRight: 2}} activeOpacity={0.8}>
-              <Image source={data.images[1]} style={{width: 129, height: 302}} />
+              <Image source={data.images[1]} style={{width: wp(32), height: hp(39)}} />
             </TouchableOpacity>
-            <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: 261}}>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: wp(66)}}>
               {data.images.slice(0, 4).map(imageData => {
                 return (
-                  <TouchableOpacity style={{paddingBottom: 2}} activeOpacity={0.8}>
-                    <Image source={imageData} style={{width: 129, height: 150}} />
+                  <TouchableOpacity style={{marginRight: 1, marginBottom: hp(1)}} activeOpacity={0.8}>
+                    <Image source={imageData} style={{width: wp(32), height: hp(19)}} />
                   </TouchableOpacity>
                 );
               })}
@@ -161,19 +162,20 @@ function Class() {
             }}>
             <View
               style={{
-                width: 261,
+                width: wp(66),
+                height: hp(40),
                 flexDirection: 'row',
                 flexWrap: 'wrap',
                 justifyContent: 'space-between',
               }}>
               {data.images.slice(0, 4).map(imageData => {
                 return (
-                  <TouchableOpacity style={{paddingBottom: 2}} activeOpacity={0.8}>
+                  <TouchableOpacity style={{marginRight: 1, marginBottom: hp(1)}} activeOpacity={0.8}>
                     <Image
                       source={imageData}
                       style={{
-                        width: 129,
-                        height: 150,
+                        width: wp(32),
+                        height: hp(19),
                       }}
                     />
                   </TouchableOpacity>
@@ -181,27 +183,24 @@ function Class() {
               })}
             </View>
             <TouchableOpacity style={{marginLeft: 2}} activeOpacity={0.8}>
-              <Image source={data.images[4]} style={{width: 129, height: 302}} resizeMode="stretch" />
+              <Image source={data.images[4]} style={{width: wp(33), height: hp(39)}} resizeMode="stretch" />
             </TouchableOpacity>
           </View>
         ) : null}
         {data.id === 3 ? (
-          <View>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <TouchableOpacity style={{paddingRight: 2}} activeOpacity={0.8}>
-                <Image source={data.images[1]} style={{width: 129, height: 302}} />
-              </TouchableOpacity>
-              <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: 261}}>
-                {data.images.slice(0, 4).map(imageData => {
-                  return (
-                    <TouchableOpacity style={{paddingBottom: 2}} activeOpacity={0.8}>
-                      <Image source={imageData} style={{width: 129, height: 150}} />
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity style={{paddingRight: 2}} activeOpacity={0.8}>
+              <Image source={data.images[1]} style={{width: wp(32), height: hp(39)}} />
+            </TouchableOpacity>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', width: wp(66)}}>
+              {data.images.slice(0, 4).map(imageData => {
+                return (
+                  <TouchableOpacity style={{marginRight: 1, marginBottom: hp(1)}} activeOpacity={0.8}>
+                    <Image source={imageData} style={{width: wp(32), height: hp(19)}} />
+                  </TouchableOpacity>
+                );
+              })}
             </View>
-            <View style={{paddingBottom: hp(10)}} />
           </View>
         ) : null}
       </>
